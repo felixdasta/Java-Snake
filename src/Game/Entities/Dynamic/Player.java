@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 /**
  * Created by AlexVR on 7/2/2018.
  */
@@ -86,7 +88,9 @@ public class Player {
                 break;
         }
         handler.getWorld().playerLocation[xCoord][yCoord]=true;
-
+//        if(handler.getWorld().playerLocation[xCoord][yCoord]=handler.getWorld().playerLocation[xCoord+5][yCoord+5]) {
+//        	kill();
+//        }  // when player collides with it self
 
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
@@ -104,7 +108,7 @@ public class Player {
         Random r = new Random();
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(Color.WHITE);
+                g.setColor(Color.WHITE);// changes snake and apple color
 
                 if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
@@ -162,7 +166,7 @@ public class Player {
                         }
                     }
                 }else{
-                    if(handler.getWorld().body.getLast().x!=0){
+                    if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
                         tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
                     }else{
                         if(handler.getWorld().body.getLast().y!=0){
@@ -210,7 +214,7 @@ public class Player {
                         } System.out.println("Tu biscochito");
                     }
                 }else{
-                    if(handler.getWorld().body.getLast().y!=0){
+                    if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
                         tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
                     }else{
                         if(handler.getWorld().body.getLast().x!=0){
@@ -225,6 +229,7 @@ public class Player {
         }
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
+
     }
 
     public void kill(){
@@ -233,7 +238,10 @@ public class Player {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
                 handler.getWorld().playerLocation[i][j]=false;
-
+                int end = JOptionPane.showConfirmDialog(null, "Game Over",null, JOptionPane.OK_CANCEL_OPTION);
+                if(end == JOptionPane.OK_OPTION) { 
+                	System.exit(0);
+                }
             }
         }
     }

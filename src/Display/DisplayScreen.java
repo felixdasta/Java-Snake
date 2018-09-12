@@ -47,7 +47,7 @@ public class DisplayScreen {
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(Color.black);
+        canvas.setBackground(Color.gray);//changes color snakes background
 
         frame.add(canvas);
         frame.pack();
