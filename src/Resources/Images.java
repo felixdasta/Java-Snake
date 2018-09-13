@@ -18,6 +18,7 @@ public class Images {
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
+    public static ImageIcon GameOverIcon;
 
     public Images() {
 
@@ -41,6 +42,7 @@ public class Images {
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
+            GameOverIcon =  new ImageIcon("res/Sheets/GameOverIcon.png");
 
 
         }catch (IOException e) {

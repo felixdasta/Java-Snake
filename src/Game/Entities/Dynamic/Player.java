@@ -1,6 +1,7 @@
 package Game.Entities.Dynamic;
 
 import Main.Handler;
+import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -349,7 +350,7 @@ public class Player {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 
-                int end = JOptionPane.showConfirmDialog(null, "Game Over",null, JOptionPane.OK_CANCEL_OPTION);
+                int end = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over","Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
                 if(end == JOptionPane.OK_OPTION || end == JOptionPane.CANCEL_OPTION) { 
                 	System.exit(0);
                 }
