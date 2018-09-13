@@ -12,7 +12,7 @@ public class KeyManager implements KeyListener {
 
 	private boolean[] keys,justPressed,cantPress;
 	public boolean up=false, down=false, left=false, right=false;
-	public boolean pbutt=false, addbutt = false, pausebutt=false;
+	public boolean pbutt=false, addbutt = false, pause=false;
 
 
 	public KeyManager(){
@@ -44,7 +44,7 @@ public class KeyManager implements KeyListener {
 
 		pbutt = keys[KeyEvent.VK_ESCAPE];
 		addbutt = keys[KeyEvent.VK_N];// when pressed add a piece of tail
-		pausebutt = keys[KeyEvent.VK_P];//pauses game
+		pause = keys[KeyEvent.VK_P];//pauses game
 		
 	}
 
