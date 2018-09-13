@@ -63,7 +63,7 @@ public class Player {
                     kill();
                 }else{
                     xCoord--;
-                }
+                }//else if (xCoord==handler.)
                 break;
             case "Right":
                 if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
@@ -88,7 +88,7 @@ public class Player {
                 break;
         }
         handler.getWorld().playerLocation[xCoord][yCoord]=true;
-//        if(handler.getWorld().playerLocation[xCoord][yCoord]=handler.getWorld().playerLocation[xCoord+5][yCoord+5]) {
+//        if(handler.getWorld().playerLocation[xCoord][yCoord]==handler.getWorld().body.isEmpty()) {
 //        	kill();
 //        }  // when player collides with it self
 
@@ -96,19 +96,22 @@ public class Player {
             Eat();
         }
 
-        if(!handler.getWorld().body.isEmpty()) {
+        if(!handler.getWorld().body.isEmpty()) {//apple add tail
             handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
             handler.getWorld().body.removeLast();
             handler.getWorld().body.addFirst(new Tail(x, y,handler));
         }
-
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
+        	Eat(); //works but with delay and adds an apple to the screen
+        
+        }//to add tail when n is pressed
     }
 
     public void render(Graphics g,Boolean[][] playeLocation){
         Random r = new Random();
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(Color.WHITE);// changes snake and apple color
+                g.setColor(Color.blue);// changes snake and apple color
 
                 if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
@@ -211,7 +214,7 @@ public class Player {
                             tail=(new Tail(this.xCoord-1,this.yCoord,handler));
                         }else{
                             tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-                        } System.out.println("Tu biscochito");
+                        }// System.out.println("Tu biscochito");// erase
                     }
                 }else{
                     if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
@@ -238,8 +241,9 @@ public class Player {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
                 handler.getWorld().playerLocation[i][j]=false;
+                
                 int end = JOptionPane.showConfirmDialog(null, "Game Over",null, JOptionPane.OK_CANCEL_OPTION);
-                if(end == JOptionPane.OK_OPTION) { 
+                if(end == JOptionPane.OK_OPTION || end == JOptionPane.CANCEL_OPTION) { 
                 	System.exit(0);
                 }
             }
