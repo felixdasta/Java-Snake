@@ -19,12 +19,11 @@ public class Player {
     public int lenght;
     public boolean justAte;
     private Handler handler;
-
+    private Tail tail;
     public int xCoord;
     public int yCoord;
-
     public int moveCounter;
-
+    private String lastDirection;
     public String direction;//is your first name one?
 
     public Player(Handler handler){
@@ -45,12 +44,16 @@ public class Player {
             moveCounter=0;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
+        	lastDirection = direction;
             direction="Up";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
+        	lastDirection = direction;
             direction="Down";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)){
+        	lastDirection = direction;
             direction="Left";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
+        	lastDirection = direction;
             direction="Right";
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
@@ -66,28 +69,40 @@ public class Player {
             case "Left":
                 if(xCoord==0){
                     kill();
-                }else{
+                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Right"){
+                	direction = "Right";
+                }
+                else{
                     xCoord--;
                 }
                 break;
             case "Right":
                 if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
                     kill();
-                }else{
+                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Left"){
+                	direction = "Left";
+                }
+                else{
                     xCoord++;
                 }
                 break;
             case "Up":
                 if(yCoord==0){
                     kill();
-                }else{
+                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Down"){
+                	direction = "Down";
+                }
+                else{
                     yCoord--;
                 }
                 break;
             case "Down":
                 if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
                     kill();
-                }else{
+                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Up"){
+                	direction = "Up";
+                }
+                else{
                     yCoord++;
                 }
                 break;
@@ -111,7 +126,6 @@ public class Player {
     }
     public void addTail(){
    	 lenght++;
-        Tail tail= null;
         switch (direction){
             case "Left":
                 if( handler.getWorld().body.isEmpty()){
@@ -132,7 +146,6 @@ public class Player {
                             tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
                         }else{
                             tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
-
                         }
                     }
 
@@ -195,7 +208,7 @@ public class Player {
                             tail=(new Tail(this.xCoord-1,this.yCoord,handler));
                         }else{
                             tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-                        }// System.out.println("Tu biscochito");// erase
+                        }
                     }
                 }else{
                     if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
