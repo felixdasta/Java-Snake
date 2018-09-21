@@ -16,7 +16,7 @@ import Game.GameStates.PauseState;
  */
 public class Player {
 
-    public int lenght;
+    public int length;
     private boolean justAte;
     private Handler handler;
     private Tail tail;
@@ -33,7 +33,7 @@ public class Player {
         moveCounter = 0;
         direction= "Right";
         justAte = false;
-        lenght= 1;
+        length= 1;
 
     }
 
@@ -109,9 +109,9 @@ public class Player {
                 break;
         }
         handler.getWorld().playerLocation[xCoord][yCoord]=true;
-//        if(handler.getWorld().playerLocation[xCoord][yCoord]==handler.getWorld().body.isEmpty()) {
-//        	kill();
-//        }  // when player collides with it self
+ //       if(handler.getWorld().body.size() > 0 && handler.getWorld().playerLocation[xCoord][yCoord]==handler.getWorld().playerLocation[tail.x][tail.y]) {
+ //       	kill();
+ //       }  // when player collides with it self
 
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             this.setJustAte(true);
@@ -145,11 +145,10 @@ public class Player {
     }
 
     public void Eat(){
-        lenght++;
+        length++;
         if (justAte==true){
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
-        }
         switch (direction){
             case "Left":
                 if( handler.getWorld().body.isEmpty()){
@@ -233,7 +232,7 @@ public class Player {
                             tail=(new Tail(this.xCoord-1,this.yCoord,handler));
                         }else{
                             tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-                        }// System.out.println("Tu biscochito");// erase
+                        }
                     }
                 }else{
                     if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
@@ -249,14 +248,15 @@ public class Player {
                 }
                 break;
         }
-        
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
-
+        }else{
+        	handler.getWorld().body.addFirst(new Tail(xCoord, yCoord, handler));
+        }
     }
 
     public void kill(){
-        lenght = 0;
+        length = 0;
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
