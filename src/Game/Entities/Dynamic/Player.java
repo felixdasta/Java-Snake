@@ -62,6 +62,9 @@ public class Player {
         	this.setJustAte(false);
         	addTail();
         }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
+        	handler.getGame().gameState.setState(handler.getGame().pauseState);;
+        }
     }
 
     public void checkCollisionAndMove(){
@@ -268,8 +271,8 @@ public class Player {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 
-                int end = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over","Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
-                if(end == JOptionPane.OK_OPTION || end == JOptionPane.CANCEL_OPTION) { 
+                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+                if(gameOver == JOptionPane.OK_OPTION) { 
                 	System.exit(0);
                 }
             }
