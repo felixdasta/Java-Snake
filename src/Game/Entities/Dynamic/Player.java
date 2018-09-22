@@ -9,6 +9,7 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+import Display.DisplayScreen;
 import Game.GameStates.PauseState;
 
 /**
@@ -20,7 +21,13 @@ public class Player {
     private boolean justAte;
     private Handler handler;
     private Tail tail;
-    public int xCoord;
+    private static int score;
+
+    public static int getScore() {
+		return score;
+	}
+
+	public int xCoord;
     public int yCoord;
     public int moveCounter;
     private String lastDirection;
@@ -28,13 +35,13 @@ public class Player {
 
     public Player(Handler handler){
         this.handler = handler;
+        score = 0;
         xCoord = 0;
         yCoord = 0;
         moveCounter = 0;
         direction= "Right";
         justAte = false;
         length= 1;
-
     }
 
     public void tick(){
@@ -117,6 +124,9 @@ public class Player {
             this.setJustAte(true);
             Eat();
         }
+        if(xCoord > 0 || yCoord > 0){
+        	DisplayScreen.setScore(score);
+        }
 
         if(!handler.getWorld().body.isEmpty()) {//apple add tail
             handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
@@ -147,6 +157,8 @@ public class Player {
     public void Eat(){
         length++;
         if (justAte==true){
+        	score+=100;
+        	DisplayScreen.setScore(score);;
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
         switch (direction){
