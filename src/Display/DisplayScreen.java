@@ -16,7 +16,7 @@ public class DisplayScreen {
 
     private JFrame frame;
     private Canvas canvas;
-    private static JLabel score;
+    private static JLabel message;
 	private String title;
     private int width, height;
 
@@ -31,7 +31,9 @@ public class DisplayScreen {
     }
 
     private void createDisplay(){
-    	score = new JLabel("Welcome to the snake game!");
+    	message = new JLabel("Welcome to the snake game!");
+    	message.setFont(new Font("Impact", Font.PLAIN, 14));
+    	
         frame = new JFrame(title);
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -39,7 +41,7 @@ public class DisplayScreen {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setBackground(Color.black);
-        frame.add(score, BorderLayout.SOUTH);
+        frame.add(message, BorderLayout.SOUTH);
 
         try {
             frame.setIconImage(ImageIO.read(new File("res/Sheets/icon.png")));
@@ -61,8 +63,8 @@ public class DisplayScreen {
     public Canvas getCanvas(){
         return canvas;
     }
-    public static void setScore(int playerScore) {
-		score.setText(String.format("Score: %d", playerScore));;
+    public static void setMessage(int playerScore) {
+		message.setText(String.format("Score: %d", playerScore));;
 	}
 
     public JFrame getFrame(){

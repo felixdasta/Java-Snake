@@ -21,12 +21,7 @@ public class Player {
     private boolean justAte;
     private Handler handler;
     private Tail tail;
-    private static int score;
-
-    public static int getScore() {
-		return score;
-	}
-
+    private int score;
 	public int xCoord;
     public int yCoord;
     public int moveCounter;
@@ -45,7 +40,7 @@ public class Player {
     }
 
     public void tick(){
-        moveCounter++;
+        moveCounter+=2;
         if(moveCounter>=5) {
             checkCollisionAndMove();
             moveCounter=0;
@@ -65,7 +60,7 @@ public class Player {
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
         	this.setJustAte(false);
-        	Eat();
+        	addTail();
         }
     }
 
@@ -122,10 +117,10 @@ public class Player {
 
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             this.setJustAte(true);
-            Eat();
+            addTail();
         }
-        if(xCoord > 0 || yCoord > 0){
-        	DisplayScreen.setScore(score);
+        if((xCoord > 0 || yCoord > 0) || justAte==true){
+        	DisplayScreen.setMessage(score); //Displays the score on the bottom as soon as the game starts and whenever the snake eats a dot
         }
 
         if(!handler.getWorld().body.isEmpty()) {//apple add tail
@@ -135,13 +130,13 @@ public class Player {
         }
         
     }
-    public void render(Graphics g,Boolean[][] playeLocation){
+    public void render(Graphics g,Boolean[][] playerLocation){
         Random r = new Random();
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 g.setColor(Color.blue);// changes snake and apple color
 
-                if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+                if(playerLocation[i][j]||handler.getWorld().appleLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
@@ -154,11 +149,10 @@ public class Player {
 
     }
 
-    public void Eat(){
+    public void addTail(){
         length++;
         if (justAte==true){
         	score+=100;
-        	DisplayScreen.setScore(score);;
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
         switch (direction){
@@ -281,6 +275,9 @@ public class Player {
             }
         }
     }
+    public int getScore() {
+		return score;
+	}
 
     public boolean isJustAte() {
         return justAte;
