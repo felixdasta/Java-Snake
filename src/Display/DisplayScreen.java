@@ -63,8 +63,8 @@ public class DisplayScreen {
     public Canvas getCanvas(){
         return canvas;
     }
-    public static void setMessage(int playerScore) {
-		message.setText(String.format("Score: %d", playerScore));;
+    public static void setMessage(String text) {
+		message.setText(text);
 	}
 
     public JFrame getFrame(){

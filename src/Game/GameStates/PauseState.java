@@ -7,6 +7,8 @@ import UI.UIManager;
 
 import java.awt.*;
 
+import Display.DisplayScreen;
+
 /**
  * Created by AlexVR on 7/1/2018.
  */
@@ -33,6 +35,7 @@ public class PauseState extends State {
         uiManager.addObjects(new UIImageButton(56, (223+(64+16))+(64+16), 128, 64, Images.BTitle, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().menuState);
+            DisplayScreen.setMessage("Welcome to the snake game!");
         }));
 
 
@@ -60,7 +63,7 @@ public class PauseState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Images.Pause,0,0,800,600,null);
+        g.drawImage(Images.Pause,0,0,780,780,null);
         uiManager.Render(g);
 
     }

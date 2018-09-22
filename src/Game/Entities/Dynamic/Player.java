@@ -40,7 +40,7 @@ public class Player {
     }
 
     public void tick(){
-        moveCounter+=2;
+        moveCounter += 2;
         if(moveCounter>=5) {
             checkCollisionAndMove();
             moveCounter=0;
@@ -64,6 +64,12 @@ public class Player {
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
         	handler.getGame().gameState.setState(handler.getGame().pauseState);;
+        }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
+        	moveCounter++;
+        }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
+        	moveCounter--;
         }
     }
 
@@ -114,16 +120,21 @@ public class Player {
                 break;
         }
         handler.getWorld().playerLocation[xCoord][yCoord]=true;
- //       if(handler.getWorld().body.size() > 0 && handler.getWorld().playerLocation[xCoord][yCoord]==handler.getWorld().playerLocation[tail.x][tail.y]) {
- //       	kill();
- //       }  // when player collides with it self
-
+        
+        if (handler.getWorld().body.size() > 0) {
+        	for (int i = 0; i < handler.getWorld().body.size(); i++){
+        		if(xCoord == handler.getWorld().body.get(i).x && yCoord == handler.getWorld().body.get(i).y) {
+        			kill();
+        		}  // when player collides with itself
+        	}
+        }
+        
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             this.setJustAte(true);
             addTail();
         }
         if((xCoord > 0 || yCoord > 0) || justAte==true){
-        	DisplayScreen.setMessage(score); //Displays the score on the bottom as soon as the game starts and whenever the snake eats a dot
+        	DisplayScreen.setMessage(String.format("Score: %d", score)); //Displays the score on the bottom as soon as the game starts and gets updated whenever the snake eats a dot
         }
 
         if(!handler.getWorld().body.isEmpty()) {//apple add tail
@@ -181,7 +192,6 @@ public class Player {
 
                         }
                     }
-
                 }
                 break;
             case "Right":
@@ -253,7 +263,6 @@ public class Player {
                             tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
                         }
                     }
-
                 }
                 break;
         }
@@ -271,7 +280,7 @@ public class Player {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 
-                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over.","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
                 if(gameOver == JOptionPane.OK_OPTION) { 
                 	System.exit(0);
                 }
