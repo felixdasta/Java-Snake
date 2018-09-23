@@ -59,13 +59,13 @@ public class Player {
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
         	lastDirection = direction;
             direction="Up";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
+        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
         	lastDirection = direction;
             direction="Down";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)){
+        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)){
         	lastDirection = direction;
             direction="Left";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
+        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
         	lastDirection = direction;
             direction="Right";
         }
