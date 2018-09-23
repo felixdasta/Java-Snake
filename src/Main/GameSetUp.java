@@ -19,6 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import Display.DisplayScreen;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
+import Game.GameStates.OptionsState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Input.KeyManager;
@@ -54,6 +55,7 @@ public class GameSetUp implements Runnable {
     public State gameState;
     public State menuState;
     public State pauseState;
+    public State optionsState;
 
     //Res.music
     private InputStream audioFile;
@@ -74,7 +76,10 @@ public class GameSetUp implements Runnable {
         mouseManager = new MouseManager();
 
     }
-    public void playAudio(String fileLocation, boolean toLoop){
+    public DisplayScreen getDisplay() {
+		return display;
+	}
+	public void playAudio(String fileLocation, boolean toLoop){
 			try {
 	            audioPlayer = AudioSystem.getClip();
 	            audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
@@ -117,6 +122,7 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
+        optionsState = new OptionsState(handler);
 
         State.setState(menuState);
 
@@ -192,8 +198,8 @@ public class GameSetUp implements Runnable {
         stop();
 
     }
-
-    private void tick(){
+    
+	private void tick(){
         //checks for key types and manages them
         keyManager.tick();
 

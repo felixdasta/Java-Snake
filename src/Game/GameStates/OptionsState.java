@@ -12,38 +12,27 @@ import Display.DisplayScreen;
 /**
  * Created by AlexVR on 7/1/2018.
  */
-public class PauseState extends State {
+public class OptionsState extends State {
 
     private int count = 0;
     private UIManager uiManager;
 
-    public PauseState(Handler handler) {
+    public OptionsState(Handler handler) {
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
 
-        uiManager.addObjects(new UIImageButton(56, 223, 128, 64, Images.Resume, () -> {
+        uiManager.addObjects(new UIImageButton(120, 330, 192, 96, Images.pacmanTheme, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().gameState);
+            handler.getWorld().player.setPlayerColor(Color.yellow);
+            handler.getWorld().setLineColor(Color.blue);
+            handler.getGame().getDisplay().setBackgroundColor(Color.black);
+            handler.getWorld().player.setEatSoundEffect("res/music/pacman_chomp.wav");
+            handler.getWorld().player.setDeathSoundEffect("res/music/pacman_death.wav");
+            handler.getWorld().player.setSoundLoop(false);
+            State.setState(handler.getGame().pauseState);
         }));
-
-        uiManager.addObjects(new UIImageButton(56, 223+(64+16), 128, 64, Images.Options, () -> {
-            handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().optionsState);
-        }));
-
-        uiManager.addObjects(new UIImageButton(56, (223+(64+16))+(64+16), 128, 64, Images.BTitle, () -> {
-            handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
-            DisplayScreen.setMessage("Welcome to the snake game!");
-        }));
-
-
-
-
-
     }
-
     @Override
     public void tick() {
         handler.getMouseManager().setUimanager(uiManager);

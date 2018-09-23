@@ -19,18 +19,24 @@ public class DisplayScreen {
     private static JLabel message;
 	private String title;
     private int width, height;
+    private Color backgroundColor;
 
     public DisplayScreen(String title, int width, int height){
         this.title = title;
         this.width = width;
         this.height = height;
-
-
+        
+        backgroundColor = Color.gray; //default background color
 
         createDisplay();
     }
 
-    private void createDisplay(){
+    public void setBackgroundColor(Color backgroundColor) {
+		this.backgroundColor = backgroundColor;
+		canvas.setBackground(backgroundColor);
+	}
+
+	private void createDisplay(){
     	message = new JLabel("Welcome to the snake game!");
     	message.setFont(new Font("Impact", Font.PLAIN, 14));
     	
@@ -54,7 +60,7 @@ public class DisplayScreen {
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(Color.gray);//changes color snakes background
+        canvas.setBackground(backgroundColor);//changes color snakes background
 
         frame.add(canvas);
         frame.pack();

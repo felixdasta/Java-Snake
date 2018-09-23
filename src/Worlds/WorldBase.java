@@ -36,16 +36,22 @@ public abstract class WorldBase {
     public Boolean[][] playerLocation;
 
     public LinkedList<Tail> body = new LinkedList<>();
-
+    
+    private Color lineColor;
 
     public WorldBase(Handler handler){
         this.handler = handler;
 
         appleOnBoard = false;
 
-
+        lineColor = Color.red;
     }
-    public void tick(){
+    
+    public void setLineColor(Color lineColor) {
+		this.lineColor = lineColor;
+	}
+    
+	public void tick(){
 
 
 
@@ -55,7 +61,7 @@ public abstract class WorldBase {
 
         for (int i = 0; i <= 800; i = i + GridPixelsize) {
 
-            g.setColor(Color.red);//color of lines
+            g.setColor(lineColor);//color of lines
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());
 

@@ -20,14 +20,18 @@ public class Player {
 
     public int length;
     private boolean justAte;
+    private boolean soundLoop;
     private Handler handler;
     private Tail tail;
     private int score;
 	public int xCoord;
     public int yCoord;
     public int moveCounter;
-    public int speedControl;
+    private int speedControl;
+    private Color playerColor;
     private String lastDirection;
+    private String eatSoundEffect;
+    private String deathSoundEffect;
     public String direction;
 
     public Player(Handler handler){
@@ -37,7 +41,11 @@ public class Player {
         yCoord = 0;
         moveCounter = 0;
         speedControl = 5;
+        playerColor = Color.blue;
+        eatSoundEffect = "res/music/bite.wav";
+        deathSoundEffect = "res/music/evil morty.wav";
         direction= "Right";
+        soundLoop = true; //determines if some sound will be looping
         justAte = false;
         length= 1;
     }
@@ -147,11 +155,27 @@ public class Player {
         }
         
     }
-    public void render(Graphics g,Boolean[][] playerLocation){
+    public void setSoundLoop(boolean soundLoop) {
+		this.soundLoop = soundLoop;
+	}
+
+	public void setEatSoundEffect(String eatSoundEffect) {
+		this.eatSoundEffect = eatSoundEffect;
+	}
+
+	public void setDeathSoundEffect(String deathSoundEffect) {
+		this.deathSoundEffect = deathSoundEffect;
+	}
+
+	public void setPlayerColor(Color playerColor) {
+		this.playerColor = playerColor;
+	}
+
+	public void render(Graphics g,Boolean[][] playerLocation){
         Random r = new Random();
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(Color.blue);// changes snake and apple color
+                g.setColor(playerColor);// changes snake and apple color
 
                 if(playerLocation[i][j]||handler.getWorld().appleLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
@@ -170,7 +194,7 @@ public class Player {
         length++;
         if (justAte==true){
         	score+=100;
-        	handler.getGame().playAudio("res/music/bite.wav", false);
+        	handler.getGame().playAudio(eatSoundEffect, false);
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
         switch (direction){
@@ -284,7 +308,7 @@ public class Player {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 handler.getGame().stopMainAudio();
-                handler.getGame().playAudio("res/music/evil morty.wav", true); 
+                handler.getGame().playAudio(deathSoundEffect, soundLoop); 
                 
                 int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
                 System.exit(0);

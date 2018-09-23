@@ -19,6 +19,7 @@ public class Images {
     public static BufferedImage[] Resume;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
+    public static BufferedImage[] pacmanTheme;
     public static ImageIcon icon;
     public static ImageIcon GameOverIcon;
 
@@ -28,6 +29,7 @@ public class Images {
         Resume = new BufferedImage[2];
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];
+        pacmanTheme = new BufferedImage[2];
 
         try {
 
@@ -42,6 +44,8 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverBut.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
+            pacmanTheme[0]= ImageIO.read(new File("res/Buttons/Pacman.png"));
+            pacmanTheme[1]= ImageIO.read(new File("res/Buttons/PacmanP.png"));
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
             GameOverIcon =  new ImageIcon("res/Sheets/GameOverIcon.png");
