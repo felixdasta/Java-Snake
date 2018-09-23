@@ -20,7 +20,7 @@ public class Player {
 
     public int length;
     private boolean justAte;
-    private boolean soundLoop;
+    private boolean toLoop;
     private Handler handler;
     private Tail tail;
     private int score;
@@ -45,8 +45,8 @@ public class Player {
         eatSoundEffect = "res/music/bite.wav";
         deathSoundEffect = "res/music/evil morty.wav";
         direction= "Right";
-        soundLoop = true; //determines if some sound will be looping
         justAte = false;
+        toLoop = true;
         length= 1;
     }
 
@@ -94,6 +94,7 @@ public class Player {
                     kill();
                 }else if(handler.getWorld().body.size() > 0 && lastDirection == "Right"){
                 	direction = "Right";
+                	xCoord++;
                 }
                 else{
                     xCoord--;
@@ -104,6 +105,7 @@ public class Player {
                     kill();
                 }else if(handler.getWorld().body.size() > 0 && lastDirection == "Left"){
                 	direction = "Left";
+                	xCoord--;
                 }
                 else{
                     xCoord++;
@@ -114,6 +116,7 @@ public class Player {
                     kill();
                 }else if(handler.getWorld().body.size() > 0 && lastDirection == "Down"){
                 	direction = "Down";
+                	yCoord++;
                 }
                 else{
                     yCoord--;
@@ -124,6 +127,7 @@ public class Player {
                     kill();
                 }else if(handler.getWorld().body.size() > 0 && lastDirection == "Up"){
                 	direction = "Up";
+                	yCoord--;
                 }
                 else{
                     yCoord++;
@@ -155,10 +159,6 @@ public class Player {
         }
         
     }
-    public void setSoundLoop(boolean soundLoop) {
-		this.soundLoop = soundLoop;
-	}
-
 	public void setEatSoundEffect(String eatSoundEffect) {
 		this.eatSoundEffect = eatSoundEffect;
 	}
@@ -169,6 +169,10 @@ public class Player {
 
 	public void setPlayerColor(Color playerColor) {
 		this.playerColor = playerColor;
+	}
+
+	public void setAudioLoop(boolean toLoop) {
+		this.toLoop = toLoop;
 	}
 
 	public void render(Graphics g,Boolean[][] playerLocation){
@@ -194,7 +198,7 @@ public class Player {
         length++;
         if (justAte==true){
         	score+=100;
-        	handler.getGame().playAudio(eatSoundEffect, false);
+        	handler.getGame().playAudio(eatSoundEffect);
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
         switch (direction){
@@ -308,8 +312,12 @@ public class Player {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 handler.getGame().stopMainAudio();
-                handler.getGame().playAudio(deathSoundEffect, soundLoop); 
-                
+                if(toLoop){
+                	handler.getGame().setMainAudioAs(deathSoundEffect); 
+                	handler.getGame().playMainAudio();
+                }else{
+                	handler.getGame().playAudio(deathSoundEffect);
+                }
                 int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
                 System.exit(0);
                 

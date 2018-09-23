@@ -79,15 +79,11 @@ public class GameSetUp implements Runnable {
     public DisplayScreen getDisplay() {
 		return display;
 	}
-	public void playAudio(String fileLocation, boolean toLoop){
+	public void playAudio(String fileLocation){
 			try {
 	            audioPlayer = AudioSystem.getClip();
 	            audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
-				if(toLoop){
-					audioPlayer.loop(Clip.LOOP_CONTINUOUSLY);
-				}else{
-					audioPlayer.start();
-				}
+				audioPlayer.start();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -147,6 +143,33 @@ public class GameSetUp implements Runnable {
 	public void stopMainAudio(){
     	audioClip.stop();
     }
+	public void setMainAudioAs(String fileLocation){
+		try {
+			audioStream = AudioSystem.getAudioInputStream(new File(fileLocation));
+			audioClip = AudioSystem.getClip();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void playMainAudio(){
+		try {
+			audioClip.open(audioStream);
+			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
     public void reStart(){
         gameState = new GameState(handler);
