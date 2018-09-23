@@ -5,6 +5,7 @@ import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -27,7 +28,7 @@ public class Player {
     public int moveCounter;
     public int speedControl;
     private String lastDirection;
-    public String direction;//is your first name one?
+    public String direction;
 
     public Player(Handler handler){
         this.handler = handler;
@@ -169,6 +170,7 @@ public class Player {
         length++;
         if (justAte==true){
         	score+=100;
+        	handler.getGame().playAudio("res/music/bite.wav", false);
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
         switch (direction){
@@ -281,11 +283,12 @@ public class Player {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
                 handler.getWorld().playerLocation[i][j]=false;
+                handler.getGame().stopMainAudio();
+                handler.getGame().playAudio("res/music/evil morty.wav", true); 
                 
-                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over.","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
-                if(gameOver == JOptionPane.OK_OPTION) { 
-                	System.exit(0);
-                }
+                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+                System.exit(0);
+                
             }
         }
     }

@@ -1,5 +1,21 @@
 package Main;
 
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Display.DisplayScreen;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
@@ -8,13 +24,6 @@ import Game.GameStates.State;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.Images;
-
-import javax.sound.sampled.*;
-import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -52,6 +61,7 @@ public class GameSetUp implements Runnable {
     private AudioFormat format;
     private DataLine.Info info;
     private Clip audioClip;
+    private Clip audioPlayer; //to play sound effects other than the main audio
 
     private BufferedImage loading;
 
@@ -64,6 +74,33 @@ public class GameSetUp implements Runnable {
         mouseManager = new MouseManager();
 
     }
+    public void playAudio(String fileLocation, boolean toLoop){
+			try {
+	            audioPlayer = AudioSystem.getClip();
+	            audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
+				if(toLoop){
+					audioPlayer.loop(Clip.LOOP_CONTINUOUSLY);
+				}else{
+					audioPlayer.start();
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+    }
+    public void stopAudio(){
+    	audioPlayer.stop();
+    }
 
     private void init(){
         display = new DisplayScreen(title, width, height);
@@ -74,7 +111,6 @@ public class GameSetUp implements Runnable {
         display.getCanvas().addMouseMotionListener(mouseManager);
 
         Images img = new Images();
-
 
         handler = new Handler(this);
 
@@ -102,7 +138,10 @@ public class GameSetUp implements Runnable {
             e.printStackTrace();
         }
     }
-
+	public void stopMainAudio(){
+    	audioClip.stop();
+    }
+    
     public void reStart(){
         gameState = new GameState(handler);
     }
@@ -118,7 +157,7 @@ public class GameSetUp implements Runnable {
 
     public void run(){
 
-        //initiallizes everything in order to run without breaking
+        //initializes everything in order to run without breaking
         init();
 
         int fps = 60;
