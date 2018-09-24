@@ -34,6 +34,7 @@ public class PauseState extends State {
 
         uiManager.addObjects(new UIImageButton(56, (223+(64+16))+(64+16), 128, 64, Images.BTitle, () -> {
             handler.getMouseManager().setUimanager(null);
+            handler.getWorld().player.checkScore();
             handler.getGame().getDisplay().setBackgroundColor(Color.gray);
             handler.getGame().stopMainAudio();
             handler.getGame().setMainAudioAs("res/music/nature.wav");

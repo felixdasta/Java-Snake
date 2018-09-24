@@ -1,17 +1,21 @@
 package Game.Entities.Dynamic;
 
-import Main.Handler;
-import Resources.Images;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
 
 import Display.DisplayScreen;
-import Game.GameStates.PauseState;
+import Main.Handler;
+import Resources.Images;
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -32,6 +36,7 @@ public class Player {
     private String lastDirection;
     private String eatSoundEffect;
     private String deathSoundEffect;
+    private String highScore;
     public String direction;
 
     public Player(Handler handler){
@@ -44,6 +49,7 @@ public class Player {
         playerColor = Color.blue;
         eatSoundEffect = "res/music/bite.wav";
         deathSoundEffect = "res/music/evil morty.wav";
+        highScore = this.getHighScore();
         direction= "Right";
         justAte = false;
         toLoop = true;
@@ -149,7 +155,7 @@ public class Player {
             addTail();
         }
         if((xCoord > 0 || yCoord > 0) || justAte==true){
-        	DisplayScreen.setMessage(String.format("Score: %d", score)); //Displays the score on the bottom as soon as the game starts and gets updated whenever the snake eats a dot
+        	DisplayScreen.setMessage(String.format("Your current score: %d, %s", score, highScore)); //Displays the score on the bottom as soon as the game starts and gets updated whenever the snake eats a dot
         }
 
         if(!handler.getWorld().body.isEmpty()) {//apple add tail
@@ -190,8 +196,6 @@ public class Player {
 
             }
         }
-
-
     }
 
     public void addTail(){
@@ -301,8 +305,52 @@ public class Player {
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
         }else{
-        	handler.getWorld().body.addFirst(new Tail(xCoord, yCoord, handler));
+        	handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
         }
+    }
+    public String getHighScore(){
+    	BufferedReader reader = null;
+    	try{
+    		reader = new BufferedReader(new FileReader("highscore.dat"));
+    		return reader.readLine();
+    	}catch(Exception e){
+    		return "highest score: 0 (by nobody)";
+    	}
+    	finally{
+    		try {
+				if(reader != null){
+					reader.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    }
+    public void checkScore(){
+    	if(score > Integer.parseInt(highScore.substring(highScore.indexOf(":") + 2, highScore.indexOf("(")-1))){
+    		String name = JOptionPane.showInputDialog(null, "Congratulations! You set a new high score.\nPlease enter your name: ");
+    		highScore = String.format("highest score: %d (by %s)", score, name); 
+    		
+    		File scoreFile = new File("highscore.dat");
+    		BufferedWriter writer;
+    		if(!scoreFile.exists()){
+    				try {
+						scoreFile.createNewFile();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}			
+    		}
+			try {
+				writer = new BufferedWriter(new FileWriter(scoreFile));
+				writer.write(highScore);
+				writer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }
 
     public void kill(){
@@ -319,6 +367,7 @@ public class Player {
                 	handler.getGame().playAudio(deathSoundEffect);
                 }
                 int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+                checkScore();
                 System.exit(0);
                 
             }
