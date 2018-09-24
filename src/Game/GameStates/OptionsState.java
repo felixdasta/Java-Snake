@@ -53,6 +53,7 @@ public class OptionsState extends State {
             State.setState(handler.getGame().pauseState);
         }));
     }
+    
     @Override
     public void tick() {
         handler.getMouseManager().setUimanager(uiManager);
@@ -66,8 +67,6 @@ public class OptionsState extends State {
 
             State.setState(handler.getGame().gameState);
         }
-
-
     }
 
     @Override

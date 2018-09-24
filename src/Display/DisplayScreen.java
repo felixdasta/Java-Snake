@@ -14,9 +14,9 @@ import Game.Entities.Dynamic.Player;
 
 public class DisplayScreen {
 
+    private static JLabel message;
     private JFrame frame;
     private Canvas canvas;
-    private static JLabel message;
 	private String title;
     private int width, height;
     private Color backgroundColor;
@@ -69,6 +69,7 @@ public class DisplayScreen {
     public Canvas getCanvas(){
         return canvas;
     }
+    
     public static void setMessage(String text) {
 		message.setText(text);
 	}
@@ -76,5 +77,4 @@ public class DisplayScreen {
     public JFrame getFrame(){
         return frame;
     }
-
 }

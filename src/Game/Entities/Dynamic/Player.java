@@ -14,6 +14,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 import Display.DisplayScreen;
+import Game.GameStates.State;
 import Main.Handler;
 import Resources.Images;
 
@@ -155,7 +156,7 @@ public class Player {
             addTail();
         }
         if((xCoord > 0 || yCoord > 0) || justAte==true){
-        	DisplayScreen.setMessage(String.format("Your current score: %d, %s", score, highScore)); //Displays the score on the bottom as soon as the game starts and gets updated whenever the snake eats a dot
+        	DisplayScreen.setMessage(String.format("Your current score: %d; %s", score, highScore)); //Displays the score on the bottom as soon as the game starts and gets updated whenever the snake eats a dot
         }
 
         if(!handler.getWorld().body.isEmpty()) {//apple add tail
@@ -163,8 +164,12 @@ public class Player {
             handler.getWorld().body.removeLast();
             handler.getWorld().body.addFirst(new Tail(x, y,handler));
         }
-        
     }
+    
+    public void setJustAte(boolean justAte) {
+        this.justAte = justAte;
+    }
+    
 	public void setEatSoundEffect(String eatSoundEffect) {
 		this.eatSoundEffect = eatSoundEffect;
 	}
@@ -182,7 +187,7 @@ public class Player {
 	}
 
 	public void render(Graphics g,Boolean[][] playerLocation){
-        Random r = new Random();
+//        Random r = new Random();
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 g.setColor(playerColor);// changes snake and apple color
@@ -193,7 +198,6 @@ public class Player {
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
                 }
-
             }
         }
     }
@@ -275,7 +279,6 @@ public class Player {
                             tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
                         }
                     }
-
                 }
                 break;
             case "Down":
@@ -308,6 +311,7 @@ public class Player {
         	handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
         }
     }
+    
     public String getHighScore(){
     	BufferedReader reader = null;
     	try{
@@ -327,6 +331,7 @@ public class Player {
 			}
     	}
     }
+    
     public void checkScore(){
     	if(score > Integer.parseInt(highScore.substring(highScore.indexOf(":") + 2, highScore.indexOf("(")-1))){
     		String name = JOptionPane.showInputDialog(null, "Congratulations! You set a new high score.\nPlease enter your name: ");
@@ -368,20 +373,8 @@ public class Player {
                 }
                 int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
                 checkScore();
-                System.exit(0);
-                
+                System.exit(0);  
             }
         }
-    }
-    public int getScore() {
-		return score;
-	}
-
-    public boolean isJustAte() {
-        return justAte;
-    }
-
-    public void setJustAte(boolean justAte) {
-        this.justAte = justAte;
     }
 }

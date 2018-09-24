@@ -42,11 +42,6 @@ public class PauseState extends State {
             State.setState(handler.getGame().menuState);
             DisplayScreen.setMessage("Welcome to the snake game!");
         }));
-
-
-
-
-
     }
 
     @Override
@@ -62,14 +57,11 @@ public class PauseState extends State {
 
             State.setState(handler.getGame().gameState);
         }
-
-
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(Images.Pause,0,0,780,780,null);
         uiManager.Render(g);
-
     }
 }
