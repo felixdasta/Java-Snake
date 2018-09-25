@@ -207,7 +207,19 @@ public class Player {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 g.setColor(playerColor);// changes snake and apple color
 
-                if(playerLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+                if(playerLocation[i][j]){
+                    g.fillRect((i*handler.getWorld().GridPixelsize),
+                            (j*handler.getWorld().GridPixelsize),
+                            handler.getWorld().GridPixelsize,
+                            handler.getWorld().GridPixelsize);
+                }
+            }
+        }
+        for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
+            for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
+                g.setColor(Color.MAGENTA);// changes snake and apple color
+
+                if(handler.getWorld().appleLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
@@ -327,6 +339,8 @@ public class Player {
         }else{
         	handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
         }
+        
+        //is ate Venom = true{ }
     }
     
     public String getHighScore(){
@@ -382,6 +396,8 @@ public class Player {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 handler.getGame().stopMainAudio();
+                
+                //if mute is pressed stopaudio & main audio
                 if(toLoop){
                 	handler.getGame().setMainAudioAs(deathSoundEffect); 
                 	handler.getGame().playMainAudio();
