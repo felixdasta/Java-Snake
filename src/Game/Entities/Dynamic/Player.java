@@ -25,6 +25,7 @@ public class Player {
 
     public int length;
     private boolean justAte;
+  //  private boolean ateVenom;
     private boolean toLoop;
     private Handler handler;
     private Tail tail;
@@ -34,6 +35,7 @@ public class Player {
     public int moveCounter;
     private int speedControl;
     private Color playerColor;
+  //  private Color venomColor;
     private String lastDirection;
     private String eatSoundEffect;
     private String deathSoundEffect;
@@ -48,6 +50,7 @@ public class Player {
         moveCounter = 0;
         speedControl = 5;
         playerColor = Color.blue;
+ //       venomColor = Color.green;
         eatSoundEffect = "res/music/bite.wav";
         deathSoundEffect = "res/music/evil morty.wav";
         highScore = this.getHighScore();
@@ -55,6 +58,8 @@ public class Player {
         justAte = false;
         toLoop = true;
         length= 1;
+        
+     //   ateVenom = false;
     }
 
     public void tick(){
@@ -81,7 +86,7 @@ public class Player {
         	addTail();
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
-        	handler.getGame().gameState.setState(handler.getGame().pauseState);;
+        	handler.getGame().gameState.setState(handler.getGame().pauseState);
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
         	speedControl--;
@@ -151,6 +156,10 @@ public class Player {
         	}
         }
         
+//        if(handler.getWorld().venomLocation[xCoord +10][yCoord +10]) {
+//        	this.setAteVenom(true);
+//        	speedControl--;
+//        }
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             this.setJustAte(true);
             addTail();
@@ -169,6 +178,9 @@ public class Player {
     public void setJustAte(boolean justAte) {
         this.justAte = justAte;
     }
+//    public void setAteVenom(boolean ateVenom) {
+//        this.ateVenom = ateVenom;
+//    }
     
 	public void setEatSoundEffect(String eatSoundEffect) {
 		this.eatSoundEffect = eatSoundEffect;
@@ -181,7 +193,10 @@ public class Player {
 	public void setPlayerColor(Color playerColor) {
 		this.playerColor = playerColor;
 	}
-
+	
+//	public void setVenomColor(Color venomColor) {
+//		this.venomColor = venomColor;
+//	}
 	public void setAudioLoop(boolean toLoop) {
 		this.toLoop = toLoop;
 	}
@@ -209,6 +224,8 @@ public class Player {
         	handler.getGame().playAudio(eatSoundEffect);
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
+//        	handler.getWorld().venomLocation[xCoord][yCoord]=false;
+//        	handler.getWorld().venomOnBoard=false;
         switch (direction){
             case "Left":
                 if( handler.getWorld().body.isEmpty()){

@@ -24,6 +24,8 @@ public class Images {
     public static BufferedImage[] defaultTheme;
     public static ImageIcon icon;
     public static ImageIcon GameOverIcon;
+    
+    public static BufferedImage[] Mute;
 
     public Images() {
 
@@ -34,7 +36,9 @@ public class Images {
         Back = new BufferedImage[2];
         pacmanTheme = new BufferedImage[2];
         defaultTheme = new BufferedImage[2];
+        Mute = new BufferedImage[2];
 
+        
         try {
 
             title = ImageIO.read(new File("res/Sheets/Title.png"));
@@ -54,7 +58,10 @@ public class Images {
             defaultTheme[1] = ImageIO.read(new File("res/Buttons/DefaultThemeP.png"));
             Back[0] = ImageIO.read(new File("res/Buttons/Back.png"));
             Back[1] = ImageIO.read(new File("res/Buttons/BackP.png"));
-
+            
+            Mute[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Mute.png"));
+            Mute[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Mute.png"));
+            
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
             GameOverIcon =  new ImageIcon("res/Sheets/GameOverIcon.png");
 
