@@ -34,7 +34,7 @@ public abstract class WorldBase {
     public Boolean[][] appleLocation;
     
 //    public Boolean venomOnBoard;
-//    protected Venom venom;
+// //   protected Venom venom;
 //    public Boolean[][] venomLocation;
 
     public Boolean[][] playerLocation;
@@ -48,7 +48,7 @@ public abstract class WorldBase {
 
         appleOnBoard = false;
 
-        lineColor = Color.red;
+        lineColor = Color.DARK_GRAY;
     }
     
     public void setLineColor(Color lineColor) {

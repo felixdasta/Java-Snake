@@ -25,7 +25,7 @@ public class Player {
 
     public int length;
     private boolean justAte;
-  //  private boolean ateVenom;
+    private boolean ateVenom;
     private boolean toLoop;
     private Handler handler;
     private Tail tail;
@@ -35,7 +35,6 @@ public class Player {
     public int moveCounter;
     private int speedControl;
     private Color playerColor;
-  //  private Color venomColor;
     private String lastDirection;
     private String eatSoundEffect;
     private String deathSoundEffect;
@@ -49,8 +48,8 @@ public class Player {
         yCoord = 0;
         moveCounter = 0;
         speedControl = 5;
-        playerColor = Color.blue;
- //       venomColor = Color.green;
+        playerColor = Color.green;
+ //       venomColor = Color.yellow;
         eatSoundEffect = "res/music/bite.wav";
         deathSoundEffect = "res/music/evil morty.wav";
         highScore = this.getHighScore();
@@ -59,7 +58,7 @@ public class Player {
         toLoop = true;
         length= 1;
         
-     //   ateVenom = false;
+        ateVenom = false;
     }
 
     public void tick(){
@@ -178,9 +177,9 @@ public class Player {
     public void setJustAte(boolean justAte) {
         this.justAte = justAte;
     }
-//    public void setAteVenom(boolean ateVenom) {
-//        this.ateVenom = ateVenom;
-//    }
+    public void setAteVenom(boolean ateVenom) {
+        this.ateVenom = ateVenom;
+    }
     
 	public void setEatSoundEffect(String eatSoundEffect) {
 		this.eatSoundEffect = eatSoundEffect;
@@ -194,18 +193,16 @@ public class Player {
 		this.playerColor = playerColor;
 	}
 	
-//	public void setVenomColor(Color venomColor) {
-//		this.venomColor = venomColor;
-//	}
 	public void setAudioLoop(boolean toLoop) {
 		this.toLoop = toLoop;
 	}
 
 	public void render(Graphics g,Boolean[][] playerLocation){
-//        Random r = new Random();
+		
+		// changes snake color
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(playerColor);// changes snake and apple color
+                g.setColor(playerColor);
 
                 if(playerLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
@@ -215,9 +212,12 @@ public class Player {
                 }
             }
         }
+       
+        // changes apple color
+        
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(Color.MAGENTA);// changes snake and apple color
+                g.setColor(Color.RED);
 
                 if(handler.getWorld().appleLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
@@ -227,6 +227,21 @@ public class Player {
                 }
             }
         }
+        
+        //changes venom color
+        
+//        for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
+//            for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
+//                g.setColor(Color.yellow);
+//
+//                if(handler.getWorld().venomLocation[i][j]){
+//                    g.fillRect((i*handler.getWorld().GridPixelsize),
+//                            (j*handler.getWorld().GridPixelsize),
+//                            handler.getWorld().GridPixelsize,
+//                            handler.getWorld().GridPixelsize);
+//                }
+//            }
+//        }
     }
 
     public void addTail(){
@@ -236,8 +251,7 @@ public class Player {
         	handler.getGame().playAudio(eatSoundEffect);
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
-//        	handler.getWorld().venomLocation[xCoord][yCoord]=false;
-//        	handler.getWorld().venomOnBoard=false;
+
         switch (direction){
             case "Left":
                 if( handler.getWorld().body.isEmpty()){
@@ -339,9 +353,118 @@ public class Player {
         }else{
         	handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
         }
-        
-        //is ate Venom = true{ }
     }
+//     public void removeTail() {
+//    	 length--;
+//        if(ateVenom = true){ 
+//        handler.getGame().playAudio(eatSoundEffect);
+//    	handler.getWorld().venomLocation[xCoord][yCoord]=false;
+//    	handler.getWorld().venomOnBoard=false;
+//    	
+//    	 switch (direction){
+//         case "Left":
+//             if( handler.getWorld().body.isEmpty()){
+//                 if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
+//                     tail = new Tail(this.xCoord+1,this.yCoord,handler);
+//                 }else{
+//                     if(this.yCoord!=0){
+//                         tail = new Tail(this.xCoord,this.yCoord-1,handler);
+//                     }else{
+//                         tail =new Tail(this.xCoord,this.yCoord+1,handler);
+//                     }
+//                 }
+//             }else{
+//                 if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
+//                     tail=new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler);
+//                 }else{
+//                     if(handler.getWorld().body.getLast().y!=0){
+//                         tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
+//                     }else{
+//                         tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
+//
+//                     }
+//                 }
+//             }
+//             break;
+//         case "Right":
+//             if( handler.getWorld().body.isEmpty()){
+//                 if(this.xCoord!=0){
+//                     tail=new Tail(this.xCoord-1,this.yCoord,handler);
+//                 }else{
+//                     if(this.yCoord!=0){
+//                         tail=new Tail(this.xCoord,this.yCoord-1,handler);
+//                     }else{
+//                         tail=new Tail(this.xCoord,this.yCoord+1,handler);
+//                     }
+//                 }
+//             }else{
+//                 if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
+//                     tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+//                 }else{
+//                     if(handler.getWorld().body.getLast().y!=0){
+//                         tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
+//                     }else{
+//                         tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+//                     }
+//                 }
+//
+//             }
+//             break;
+//         case "Up":
+//             if( handler.getWorld().body.isEmpty()){
+//                 if(this.yCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
+//                     tail=(new Tail(this.xCoord,this.yCoord+1,handler));
+//                 }else{
+//                     if(this.xCoord!=0){
+//                         tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+//                     }else{
+//                         tail=(new Tail(this.xCoord+1,this.yCoord,handler));
+//                     }
+//                 }
+//             }else{
+//                 if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
+//                     tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+//                 }else{
+//                     if(handler.getWorld().body.getLast().x!=0){
+//                         tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+//                     }else{
+//                         tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+//                     }
+//                 }
+//             }
+//             break;
+//         case "Down":
+//             if( handler.getWorld().body.isEmpty()){
+//                 if(this.yCoord!=0){
+//                     tail=(new Tail(this.xCoord,this.yCoord-1,handler));
+//                 }else{
+//                     if(this.xCoord!=0){
+//                         tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+//                     }else{
+//                         tail=(new Tail(this.xCoord+1,this.yCoord,handler));
+//                     }
+//                 }
+//             }else{
+//                 if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
+//                     tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
+//                 }else{
+//                     if(handler.getWorld().body.getLast().x!=0){
+//                         tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+//                     }else{
+//                         tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+//                     }
+//                 }
+//             }
+//             break;
+//     }
+//     handler.getWorld().body.addLast(tail);
+//     handler.getWorld().playerLocation[tail.x][tail.y] = true;
+//     }else{
+//     	handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
+//     }
+//    
+//        handler.getWorld().body.removeLast(tail);
+//    } 
     
     public String getHighScore(){
     	BufferedReader reader = null;
@@ -396,17 +519,18 @@ public class Player {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 handler.getGame().stopMainAudio();
+                handler.getGame().setMainAudioAs(deathSoundEffect);
+                handler.getGame().playMainAudio();
                 
-                //if mute is pressed stopaudio & main audio
-                if(toLoop){
-                	handler.getGame().setMainAudioAs(deathSoundEffect); 
-                	handler.getGame().playMainAudio();
-                }else{
-                	handler.getGame().playAudio(deathSoundEffect);
-                }
-                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...","Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+           
+                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...  Want to play again?","Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+                handler.getGame().stopMainAudio();
+                if (gameOver == JOptionPane.YES_OPTION) {
+                	handler.getGame().run();
+                }else {
                 checkScore();
-                System.exit(0);  
+                System.exit(0);
+                }
             }
         }
     }

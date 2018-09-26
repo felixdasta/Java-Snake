@@ -47,6 +47,7 @@ public class PauseState extends State {
             handler.getMouseManager().setUimanager(null);
             handler.getGame().stopMainAudio();
             handler.getGame().stopAudio();
+            
             }));
 
     }
