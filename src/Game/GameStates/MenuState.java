@@ -20,7 +20,13 @@ public class MenuState extends State {
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
-
+       
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/20, handler.getHeight()/20-10, 32, 32, Images.Mute, () -> {
+            handler.getMouseManager().setUimanager(null);
+            handler.getGame().stopMainAudio();
+            handler.getGame().stopAudio();
+        
+        }));
 
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.butstart, new ClickListlener() {
             @Override

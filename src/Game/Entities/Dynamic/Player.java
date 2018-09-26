@@ -38,8 +38,8 @@ public class Player {
     private int speedControl;
     private Color playerColor;
     private String lastDirection;
-    private String eatSoundEffect;
-    private String deathSoundEffect;
+    public String eatSoundEffect;
+    public String deathSoundEffect;
     private String highScore;
     public String direction;
 

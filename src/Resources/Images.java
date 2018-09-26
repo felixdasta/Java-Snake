@@ -60,7 +60,7 @@ public class Images {
             Back[1] = ImageIO.read(new File("res/Buttons/BackP.png"));
             
             Mute[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Mute.png"));
-            Mute[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Mute.png"));
+            Mute[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteP.png"));
             
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
             GameOverIcon =  new ImageIcon("res/Sheets/GameOverIcon.png");
