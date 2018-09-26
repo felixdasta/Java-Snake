@@ -46,8 +46,6 @@ public class PauseState extends State {
         uiManager.addObjects(new UIImageButton(56 + (225+64+16), 223+(64+16), 128, 64, Images.Mute, () -> {
             handler.getMouseManager().setUimanager(null);
             handler.getGame().stopMainAudio();
-            handler.getGame().stopAudio();
-            
             }));
 
     }

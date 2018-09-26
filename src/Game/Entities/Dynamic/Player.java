@@ -422,24 +422,29 @@ public class Player {
 
     public void kill(){
         length = 0;
-        for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
-            for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                handler.getWorld().playerLocation[i][j]=false;
-                handler.getGame().stopMainAudio();
-                if(soundLoop){ 
-                	handler.getGame().setMainAudioAs(deathSoundEffect);  
-                	handler.getGame().playMainAudio(); 
-                }else{ 
-                	handler.getGame().playAudio(deathSoundEffect); 
-                } 
-                int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...  Want to play again?","Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
-
-                if (gameOver == JOptionPane.YES_OPTION) {
-                	handler.getGame().run();
+        handler.getGame().stopMainAudio();
+        if(soundLoop){ 
+        	handler.getGame().setMainAudioAs(deathSoundEffect);  
+        	handler.getGame().playMainAudio(); 
+        }else{ 
+        	handler.getGame().playAudio(deathSoundEffect); 
+        } 
+        int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over.\nDo you want to return to the menu?","Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+        if (gameOver == JOptionPane.YES_OPTION) {
+            checkScore();
+            handler.getGame().stopMainAudio();
+            handler.getGame().setMainAudioAs("res/music/nature.wav");
+            handler.getGame().playMainAudio();
+            handler.getGame().getDisplay().setBackgroundColor(Color.gray);
+        	State.setState(handler.getGame().menuState);
+        }else{
+            checkScore();
+            for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
+                for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
+                	handler.getWorld().playerLocation[i][j]=false;
                 }
-                checkScore();
-                System.exit(0);
             }
+        	System.exit(0);
         }
     }
 }
