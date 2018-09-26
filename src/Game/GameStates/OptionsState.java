@@ -33,8 +33,7 @@ public class OptionsState extends State {
             handler.getWorld().player.setDeathSoundEffect("res/music/pacman_death.wav");
             handler.getWorld().player.setAudioLoop(false);
             handler.getGame().stopMainAudio();
-            handler.getGame().setMainAudioAs("res/music/pacman_fever.wav");
-            handler.getGame().playMainAudio();
+            handler.getGame().playMainAudioAs("res/music/pacman_fever.wav");
             State.setState(handler.getGame().pauseState);
         }));
         uiManager.addObjects(new UIImageButton(120, 380, 192, 96, Images.defaultTheme, () -> {
@@ -46,14 +45,17 @@ public class OptionsState extends State {
             handler.getWorld().player.setDeathSoundEffect("res/music/evil morty.wav");
             handler.getWorld().player.setAudioLoop(true);
             handler.getGame().stopMainAudio();
-            handler.getGame().setMainAudioAs("res/music/nature.wav");
-            handler.getGame().playMainAudio();
+            handler.getGame().playMainAudioAs("res/music/nature.wav");
             State.setState(handler.getGame().pauseState);
         }));
         uiManager.addObjects(new UIImageButton(183, 500, 69, 27, Images.Back, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().pauseState);
         }));
+        uiManager.addObjects(new UIImageButton(320, 300, 128, 64, Images.Mute, () -> {
+            handler.getMouseManager().setUimanager(null);
+            handler.getGame().stopMainAudio();
+            }));
     }
     
     @Override

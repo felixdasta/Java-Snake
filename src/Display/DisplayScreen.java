@@ -60,7 +60,7 @@ public class DisplayScreen {
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(backgroundColor);//changes color snakes background
+        canvas.setBackground(backgroundColor);//changes background color
 
         frame.add(canvas);
         frame.pack();
@@ -73,6 +73,12 @@ public class DisplayScreen {
     public static void setMessage(String text) {
 		message.setText(text);
 	}
+    public static void enableMessage() {
+    	message.setVisible(true);
+    }
+    public static void disableMessage() {
+    	message.setVisible(false);;
+    }
 
     public JFrame getFrame(){
         return frame;

@@ -23,8 +23,6 @@ import Resources.Images;
  * Created by AlexVR on 7/2/2018.
  */
 public class Player {
-    private DisplayScreen display;
-
     public int length;
     private boolean justAte;
     private boolean ateVenom;
@@ -424,8 +422,7 @@ public class Player {
         length = 0;
         handler.getGame().stopMainAudio();
         if(soundLoop){ 
-        	handler.getGame().setMainAudioAs(deathSoundEffect);  
-        	handler.getGame().playMainAudio(); 
+        	handler.getGame().playMainAudioAs(deathSoundEffect);  
         }else{ 
         	handler.getGame().playAudio(deathSoundEffect); 
         } 
@@ -433,8 +430,7 @@ public class Player {
         if (gameOver == JOptionPane.YES_OPTION) {
             checkScore();
             handler.getGame().stopMainAudio();
-            handler.getGame().setMainAudioAs("res/music/nature.wav");
-            handler.getGame().playMainAudio();
+            handler.getGame().playMainAudioAs("res/music/nature.wav");
             handler.getGame().getDisplay().setBackgroundColor(Color.gray);
         	State.setState(handler.getGame().menuState);
         }else{
@@ -442,9 +438,11 @@ public class Player {
             for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
                 for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 	handler.getWorld().playerLocation[i][j]=false;
+                	handler.getGame().getDisplay().setBackgroundColor(Color.black);
+                	State.setState(handler.getGame().creditsState); 
                 }
             }
-        	System.exit(0);
+            
         }
     }
 }

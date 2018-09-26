@@ -17,6 +17,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Display.DisplayScreen;
+import Game.GameStates.CreditsState;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.OptionsState;
@@ -56,6 +57,7 @@ public class GameSetUp implements Runnable {
     public State menuState;
     public State pauseState;
     public State optionsState;
+    public State creditsState;
 
     //Res.music
     private InputStream audioFile;
@@ -119,6 +121,7 @@ public class GameSetUp implements Runnable {
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
         optionsState = new OptionsState(handler);
+        creditsState = new CreditsState(handler);
 
         State.setState(menuState);
 
@@ -143,29 +146,19 @@ public class GameSetUp implements Runnable {
 	public void stopMainAudio(){
     	audioClip.stop();
     }
-	public void setMainAudioAs(String fileLocation){
+	public void playMainAudioAs(String fileLocation){
 		try {
 			audioStream = AudioSystem.getAudioInputStream(new File(fileLocation));
 			audioClip = AudioSystem.getClip();
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void playMainAudio(){
-		try {
 			audioClip.open(audioStream);
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 		} catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
