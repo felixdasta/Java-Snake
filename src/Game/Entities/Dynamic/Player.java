@@ -28,7 +28,8 @@ public class Player {
     public int length;
     private boolean justAte;
     private boolean ateVenom;
-    private boolean toLoop;
+    private boolean soundLoop;
+    private boolean appleRoundShape;
     private Handler handler;
     private Tail tail;
     private int score;
@@ -37,7 +38,7 @@ public class Player {
     public int moveCounter;
     private int speedControl;
     private Color playerColor;
-    private String lastDirection;
+    private Color appleColor;
     private String eatSoundEffect;
     private String deathSoundEffect;
     private String highScore;
@@ -51,12 +52,13 @@ public class Player {
         moveCounter = 0;
         speedControl = 5;
         playerColor = Color.green;
+        appleColor = Color.red;
         eatSoundEffect = "res/music/bite.wav";
         deathSoundEffect = "res/music/evil morty.wav";
         highScore = this.getHighScore();
         direction= "Right";
         justAte = false;
-        toLoop = true;
+        soundLoop = true;
         length= 1;
         
         ateVenom = false;
@@ -68,31 +70,39 @@ public class Player {
             checkCollisionAndMove();
             moveCounter=0;
         }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
-        	lastDirection = direction;
-            direction="Up";
-        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
-        	lastDirection = direction;
-            direction="Down";
-        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)){
-        	lastDirection = direction;
-            direction="Left";
-        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
-        	lastDirection = direction;
-            direction="Right";
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
+            if(handler.getWorld().body.isEmpty())
+            	direction = "Up";
+            else if(!direction.equals("Down") && handler.getWorld().body.size() > 0)
+            	direction="Up";
+        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
+            if(handler.getWorld().body.isEmpty())
+            	direction="Down";
+            else if(!direction.equals("Up") && handler.getWorld().body.size() > 0)
+            	direction="Down";
+        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
+        	if(handler.getWorld().body.isEmpty())
+        		direction = "Left";
+        	else if(!direction.equals("Right") && handler.getWorld().body.size() > 0)
+            	direction="Left";
+        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)){
+        	if(handler.getWorld().body.isEmpty())
+        		direction = "Right";
+        	else if(!direction.equals("Left") && handler.getWorld().body.size() > 0)
+            	direction="Right";
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
         	this.setJustAte(false);
         	addTail();
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
-        	handler.getGame().gameState.setState(handler.getGame().pauseState);
+        	State.setState(handler.getGame().pauseState);;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
-        	speedControl--;
+        	speedControl-=2;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
-        	speedControl++;
+        	speedControl+=2;
         }
     }
 
@@ -104,9 +114,6 @@ public class Player {
             case "Left":
                 if(xCoord==0){
                     kill();
-                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Right"){
-                	direction = "Right";
-                	xCoord++;
                 }
                 else{
                     xCoord--;
@@ -115,9 +122,6 @@ public class Player {
             case "Right":
                 if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
                     kill();
-                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Left"){
-                	direction = "Left";
-                	xCoord--;
                 }
                 else{
                     xCoord++;
@@ -126,9 +130,6 @@ public class Player {
             case "Up":
                 if(yCoord==0){
                     kill();
-                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Down"){
-                	direction = "Down";
-                	yCoord++;
                 }
                 else{
                     yCoord--;
@@ -137,9 +138,6 @@ public class Player {
             case "Down":
                 if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
                     kill();
-                }else if(handler.getWorld().body.size() > 0 && lastDirection == "Up"){
-                	direction = "Up";
-                	yCoord--;
                 }
                 else{
                     yCoord++;
@@ -194,8 +192,12 @@ public class Player {
 		this.playerColor = playerColor;
 	}
 	
+	public void setAppleColor(Color appleColor) {
+		this.appleColor = appleColor;
+	}
+
 	public void setAudioLoop(boolean toLoop) {
-		this.toLoop = toLoop;
+		this.soundLoop = toLoop;
 	}
 
 	public void render(Graphics g,Boolean[][] playerLocation){
@@ -218,13 +220,20 @@ public class Player {
         
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(Color.RED);
+                g.setColor(appleColor);
 
                 if(handler.getWorld().appleLocation[i][j]){
-                    g.fillRect((i*handler.getWorld().GridPixelsize),
-                            (j*handler.getWorld().GridPixelsize),
-                            handler.getWorld().GridPixelsize,
-                            handler.getWorld().GridPixelsize);
+                	if (appleRoundShape){
+                        g.fillOval((i*handler.getWorld().GridPixelsize),
+                                (j*handler.getWorld().GridPixelsize),
+                                handler.getWorld().GridPixelsize,
+                                handler.getWorld().GridPixelsize);
+                	}else{
+                        g.fillRect((i*handler.getWorld().GridPixelsize),
+                                (j*handler.getWorld().GridPixelsize),
+                                handler.getWorld().GridPixelsize,
+                                handler.getWorld().GridPixelsize);
+                	}
                 }
             }
         }
@@ -245,7 +254,11 @@ public class Player {
 //        }
     }
 
-    public void addTail(){
+    public void setAppleRoundShape(boolean appleRoundShape) {
+		this.appleRoundShape = appleRoundShape;
+	}
+
+	public void addTail(){
         length++;
         if (justAte==true){
         	score+=100;
@@ -273,7 +286,6 @@ public class Player {
                             tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
                         }else{
                             tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
-
                         }
                     }
                 }
@@ -378,6 +390,12 @@ public class Player {
     
     public void checkScore(){
     	if(score > Integer.parseInt(highScore.substring(highScore.indexOf(":") + 2, highScore.indexOf("(")-1))){
+    		if(soundLoop){
+    			handler.getGame().stopMainAudio();
+    			handler.getGame().playAudio("res/music/cheering.wav");
+    		}else{
+    			handler.getGame().playAudio("res/music/cheering.wav");
+    		}
     		String name = JOptionPane.showInputDialog(null, "Congratulations! You set a new high score.\nPlease enter your name: ");
     		highScore = String.format("highest score: %d (by %s)", score, name); 
     		
@@ -406,18 +424,19 @@ public class Player {
         length = 0;
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-
                 handler.getWorld().playerLocation[i][j]=false;
                 handler.getGame().stopMainAudio();
-                handler.getGame().setMainAudioAs(deathSoundEffect);
-                handler.getGame().playMainAudio();
-           
+                if(soundLoop){ 
+                	handler.getGame().setMainAudioAs(deathSoundEffect);  
+                	handler.getGame().playMainAudio(); 
+                }else{ 
+                	handler.getGame().playAudio(deathSoundEffect); 
+                } 
                 int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over...  Want to play again?","Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
-                handler.getGame().stopMainAudio();
+
                 if (gameOver == JOptionPane.YES_OPTION) {
                 	handler.getGame().run();
                 }
-                
                 checkScore();
                 System.exit(0);
             }

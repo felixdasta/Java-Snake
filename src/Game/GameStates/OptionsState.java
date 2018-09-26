@@ -25,6 +25,8 @@ public class OptionsState extends State {
         uiManager.addObjects(new UIImageButton(135, 280, 160, 80, Images.pacmanTheme, () -> {
             handler.getMouseManager().setUimanager(null);
             handler.getWorld().player.setPlayerColor(Color.yellow);
+            handler.getWorld().player.setAppleColor(new Color(239, 199, 127));
+            handler.getWorld().player.setAppleRoundShape(true);
             handler.getWorld().setLineColor(Color.blue);
             handler.getGame().getDisplay().setBackgroundColor(Color.black);
             handler.getWorld().player.setEatSoundEffect("res/music/pacman_chomp.wav");
