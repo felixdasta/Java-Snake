@@ -52,11 +52,26 @@ public class OptionsState extends State {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().pauseState);
         }));
-        uiManager.addObjects(new UIImageButton(320, 300, 128, 64, Images.Mute, () -> {
+        uiManager.addObjects(new UIImageButton(320, 300, 192, 64, Images.MuteBM, () -> {
             handler.getMouseManager().setUimanager(null);
             handler.getGame().stopMainAudio();
+            handler.getGame().setBackgroundMusicMute(true);
+            }));
+        uiManager.addObjects(new UIImageButton(320, 400, 192, 64, Images.MuteSE, () -> {
+            handler.getMouseManager().setUimanager(null);
+            handler.getGame().setSoundEffectMute(true);
+            }));
+        uiManager.addObjects(new UIImageButton(520, 300, 192, 64, Images.UnmuteBM, () -> {
+            handler.getMouseManager().setUimanager(null);
+            handler.getGame().playMainAudio();
+            handler.getGame().setBackgroundMusicMute(false);
+            }));
+        uiManager.addObjects(new UIImageButton(520, 400, 192, 64, Images.UnmuteSE, () -> {
+            handler.getMouseManager().setUimanager(null);
+            handler.getGame().setSoundEffectMute(false);
             }));
     }
+    
     
     @Override
     public void tick() {
@@ -75,7 +90,7 @@ public class OptionsState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Images.Pause,0,0,780,780,null);
+        g.drawImage(Images.OptionsState,0,0,780,780, null);
         uiManager.Render(g);
 
     }

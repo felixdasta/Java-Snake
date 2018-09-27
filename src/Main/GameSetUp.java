@@ -66,6 +66,8 @@ public class GameSetUp implements Runnable {
     private DataLine.Info info;
     private Clip audioClip;
     private Clip audioPlayer; //to play sound effects other than the main audio
+    private boolean soundEffectMute;
+    private boolean backgroundMusicMute;
 
     private BufferedImage loading;
 
@@ -81,11 +83,17 @@ public class GameSetUp implements Runnable {
     public DisplayScreen getDisplay() {
 		return display;
 	}
-	public void playAudio(String fileLocation){
+	public void playAudio(String fileLocation, boolean soundLoop){
 			try {
-	            audioPlayer = AudioSystem.getClip();
-	            audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
-				audioPlayer.start();
+				if(!soundEffectMute){
+					audioPlayer = AudioSystem.getClip();
+					audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
+					if(!soundLoop){
+						audioPlayer.start();
+					}else{
+						audioPlayer.loop(Clip.LOOP_CONTINUOUSLY);
+					}
+				}
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -105,7 +113,10 @@ public class GameSetUp implements Runnable {
     	audioPlayer.stop();
     }
 
-    private void init(){
+    public void setSoundEffectMute(boolean soundEffectMute) {
+		this.soundEffectMute = soundEffectMute;
+	}
+	private void init(){
         display = new DisplayScreen(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         display.getFrame().addMouseListener(mouseManager);
@@ -148,10 +159,12 @@ public class GameSetUp implements Runnable {
     }
 	public void playMainAudioAs(String fileLocation){
 		try {
+			if(!backgroundMusicMute){
 			audioStream = AudioSystem.getAudioInputStream(new File(fileLocation));
 			audioClip = AudioSystem.getClip();
 			audioClip.open(audioStream);
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+			}
 		} catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,8 +176,14 @@ public class GameSetUp implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	public void playMainAudio(){
+		audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+	}
     
-    public void reStart(){
+    public void setBackgroundMusicMute(boolean backgroundMusicMute) {
+		this.backgroundMusicMute = backgroundMusicMute;
+	}
+	public void reStart(){
         gameState = new GameState(handler);
     }
 

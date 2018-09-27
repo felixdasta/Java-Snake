@@ -260,105 +260,105 @@ public class Player {
         length++;
         if (justAte==true){
         	score+=100;
-        	handler.getGame().playAudio(eatSoundEffect);
+
+            handler.getGame().playAudio(eatSoundEffect, false);
         	handler.getWorld().appleLocation[xCoord][yCoord]=false;
         	handler.getWorld().appleOnBoard=false;
 
         switch (direction){
-            case "Left":
-                if( handler.getWorld().body.isEmpty()){
-                    if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
-                        tail = new Tail(this.xCoord+1,this.yCoord,handler);
-                    }else{
-                        if(this.yCoord!=0){
-                            tail = new Tail(this.xCoord,this.yCoord-1,handler);
-                        }else{
-                            tail =new Tail(this.xCoord,this.yCoord+1,handler);
-                        }
-                    }
+        case "Left":
+            if( handler.getWorld().body.isEmpty()){
+                if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
+                    tail = new Tail(this.xCoord+1,this.yCoord,handler);
                 }else{
-                    if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
-                        tail=new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler);
-                    }else{
-                        if(handler.getWorld().body.getLast().y!=0){
-                            tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
-                        }else{
-                            tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
-                        }
-                    }
-                }
-                break;
-            case "Right":
-                if( handler.getWorld().body.isEmpty()){
-                    if(this.xCoord!=0){
-                        tail=new Tail(this.xCoord-1,this.yCoord,handler);
-                    }else{
-                        if(this.yCoord!=0){
-                            tail=new Tail(this.xCoord,this.yCoord-1,handler);
-                        }else{
-                            tail=new Tail(this.xCoord,this.yCoord+1,handler);
-                        }
-                    }
-                }else{
-                    if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
-                        tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
-                    }else{
-                        if(handler.getWorld().body.getLast().y!=0){
-                            tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
-                        }else{
-                            tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
-                        }
-                    }
-
-                }
-                break;
-            case "Up":
-                if( handler.getWorld().body.isEmpty()){
-                    if(this.yCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
-                        tail=(new Tail(this.xCoord,this.yCoord+1,handler));
-                    }else{
-                        if(this.xCoord!=0){
-                            tail=(new Tail(this.xCoord-1,this.yCoord,handler));
-                        }else{
-                            tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-                        }
-                    }
-                }else{
-                    if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
-                        tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
-                    }else{
-                        if(handler.getWorld().body.getLast().x!=0){
-                            tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
-                        }else{
-                            tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
-                        }
-                    }
-                }
-                break;
-            case "Down":
-                if( handler.getWorld().body.isEmpty()){
                     if(this.yCoord!=0){
-                        tail=(new Tail(this.xCoord,this.yCoord-1,handler));
+                        tail = new Tail(this.xCoord,this.yCoord-1,handler);
                     }else{
-                        if(this.xCoord!=0){
-                            tail=(new Tail(this.xCoord-1,this.yCoord,handler));
-                        }else{
-                            tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-                        }
+                        tail =new Tail(this.xCoord,this.yCoord+1,handler);
                     }
+                }
+            }else{
+                if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
+                    tail=new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler);
                 }else{
-                    if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
+                    if(handler.getWorld().body.getLast().y!=0){
+                        tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
+                    }else{
+                        tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
+                    }
+                }
+            }
+            break;
+        case "Right":
+            if( handler.getWorld().body.isEmpty()){
+                if(this.xCoord!=0){
+                    tail=new Tail(this.xCoord-1,this.yCoord,handler);
+                }else{
+                    if(this.yCoord!=0){
+                        tail=new Tail(this.xCoord,this.yCoord-1,handler);
+                    }else{
+                        tail=new Tail(this.xCoord,this.yCoord+1,handler);
+                    }
+                }
+            }else{
+                if(handler.getWorld().body.getLast().x!=0){
+                    tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+                }else{
+                    if(handler.getWorld().body.getLast().y!=0){
                         tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
                     }else{
-                        if(handler.getWorld().body.getLast().x!=0){
-                            tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
-                        }else{
-                            tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
-                        }
+                        tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
                     }
                 }
-                break;
-        }
+            }
+            break;
+        case "Up":
+            if( handler.getWorld().body.isEmpty()){
+                if(this.yCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
+                    tail=(new Tail(this.xCoord,this.yCoord+1,handler));
+                }else{
+                    if(this.xCoord!=0){
+                        tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+                    }else{
+                        tail=(new Tail(this.xCoord+1,this.yCoord,handler));
+                    }
+                }
+            }else{
+                if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
+                    tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+                }else{
+                    if(handler.getWorld().body.getLast().x!=0){
+                        tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+                    }else{
+                        tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+                    }
+                }
+            }
+            break;
+        case "Down":
+            if( handler.getWorld().body.isEmpty()){
+                if(this.yCoord!=0){
+                    tail=(new Tail(this.xCoord,this.yCoord-1,handler));
+                }else{
+                    if(this.xCoord!=0){
+                        tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+                    }else{
+                        tail=(new Tail(this.xCoord+1,this.yCoord,handler));
+                    }
+                }
+            }else{
+                if(handler.getWorld().body.getLast().y!=0){
+                    tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
+                }else{
+                    if(handler.getWorld().body.getLast().x!=0){
+                        tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+                    }else{
+                        tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+                    }
+                }
+            }
+            break;
+    }
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
         }else{
@@ -388,12 +388,7 @@ public class Player {
     
     public void checkScore(){
     	if(score > Integer.parseInt(highScore.substring(highScore.indexOf(":") + 2, highScore.indexOf("(")-1))){
-    		if(soundLoop){
-    			handler.getGame().stopMainAudio();
-    			handler.getGame().playAudio("res/music/cheering.wav");
-    		}else{
-    			handler.getGame().playAudio("res/music/cheering.wav");
-    		}
+    		handler.getGame().playAudio("res/music/cheering.wav", false);
     		String name = JOptionPane.showInputDialog(null, "Congratulations! You set a new high score.\nPlease enter your name: ");
     		highScore = String.format("highest score: %d (by %s)", score, name); 
     		
@@ -419,19 +414,22 @@ public class Player {
     }
 
     public void kill(){
-        length = 0;
-        handler.getGame().stopMainAudio();
-        if(soundLoop){ 
-        	handler.getGame().playMainAudioAs(deathSoundEffect);  
-        }else{ 
-        	handler.getGame().playAudio(deathSoundEffect); 
-        } 
+    	length = 0;
+    	handler.getGame().stopMainAudio();
+    		if(soundLoop){ 
+    			handler.getGame().playAudio(deathSoundEffect, soundLoop);  
+    		}else{ 
+    			handler.getGame().playAudio(deathSoundEffect, soundLoop); 
+    		} 
         int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over.\nDo you want to return to the menu?","Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
         if (gameOver == JOptionPane.YES_OPTION) {
             checkScore();
-            handler.getGame().stopMainAudio();
+            handler.getGame().stopAudio();
             handler.getGame().playMainAudioAs("res/music/nature.wav");
             handler.getGame().getDisplay().setBackgroundColor(Color.gray);
+            xCoord = 0;
+            yCoord = 0;
+            DisplayScreen.setMessage("Welcome to the snake game!");
         	State.setState(handler.getGame().menuState);
         }else{
             checkScore();
