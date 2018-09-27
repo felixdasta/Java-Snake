@@ -11,10 +11,9 @@ import UI.UIImageButton;
 import UI.UIManager;
 
 public class CreditsState extends State{
-    private int count = 0;
+
     private int timer = 0;
     private int yPosition = 0;
-    private boolean render;
     private int creditsInitialPosition = handler.getHeight() + 100;
     private UIManager uiManager;
 
@@ -31,6 +30,7 @@ public class CreditsState extends State{
     }
 	@Override
     public void render(Graphics g) {
+    	handler.getGame().getDisplay().setBackgroundColor(Color.black);
         DisplayScreen.setMessage("Thank you for playing Java Snake!");
     	g.setColor(Color.white);
         g.setFont(new Font("Impact", Font.PLAIN, 14));
@@ -41,10 +41,16 @@ public class CreditsState extends State{
         g.drawString("Félix Dasta", handler.getWidth()/4, creditsInitialPosition +  98 - yPosition);
         g.drawString("Ashley Johan", handler.getWidth()/4, creditsInitialPosition +  116 - yPosition);
         g.drawString("Special thanks to Josian A. Velez Ramos, who developed the snake game", handler.getWidth()/4, creditsInitialPosition +  146 - yPosition);
-        g.drawString("NOTE: All of the sound clips were borrowed for educational purposes only.", handler.getWidth()/4, creditsInitialPosition +  176 - yPosition);
+        g.drawString("NOTE: All of the sound clips were borrowed for educational purposes only", handler.getWidth()/4, creditsInitialPosition +  176 - yPosition);
         uiManager.Render(g);
         if(yPosition < handler.getHeight() - 100) {
             yPosition++;
+            try {
+				Thread.sleep(1000/90);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }else {
         	while(timer < 30) {
         		timer++;

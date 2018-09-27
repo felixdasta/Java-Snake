@@ -436,7 +436,6 @@ public class Player {
             for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
                 for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 	handler.getWorld().playerLocation[i][j]=false;
-                	handler.getGame().getDisplay().setBackgroundColor(Color.black);
                 	State.setState(handler.getGame().creditsState); 
                 }
             }
