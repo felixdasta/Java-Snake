@@ -26,12 +26,6 @@ public class MenuState extends State {
            handler.getMouseManager().setUimanager(null); 
        }));
        
-//       uiManager.addObjects(new UIImageButton(handler.getWidth()/10, handler.getHeight()/20, 100, 100, Images.GameInfo1, () -> {
-//    	   handler.getMouseManager().setUimanager(null);
-//    	  
-//
-//       }));
-       
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.butstart, new ClickListlener() {
             @Override
             public void onClick() {
@@ -62,8 +56,6 @@ public class MenuState extends State {
         g.drawString("N –> adds piece of tail\r\n", handler.getWidth()/10, handler.getHeight()/20 +20);
         g.drawString("+  –> increases speed\r\n", handler.getWidth()/10, handler.getHeight()/20+30);
         g.drawString("-  –> decreases speed\r\n", handler.getWidth()/10, handler.getHeight()/20+40);
-
-
     }
 
 

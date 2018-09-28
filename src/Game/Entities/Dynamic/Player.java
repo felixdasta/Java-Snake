@@ -9,11 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Random;
-
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
-
 import Display.DisplayScreen;
 import Game.GameStates.State;
 import Main.Handler;
@@ -25,7 +21,6 @@ import Resources.Images;
 public class Player {
     public int length;
     private boolean justAte;
-    private boolean ateVenom;
     private boolean soundLoop;
     private boolean appleRoundShape;
     private Handler handler;
@@ -36,7 +31,6 @@ public class Player {
     public int moveCounter;
     private int speedControl;
     private Color playerColor;
-    private String lastDirection;
     public String eatSoundEffect;
     public String deathSoundEffect;
     private Color appleColor;
@@ -61,7 +55,6 @@ public class Player {
         soundLoop = true;
         length= 1;
         
-        ateVenom = false;
     }
 
     public void tick(){
@@ -150,14 +143,10 @@ public class Player {
         	for (int i = 0; i < handler.getWorld().body.size(); i++){
         		if(xCoord == handler.getWorld().body.get(i).x && yCoord == handler.getWorld().body.get(i).y) {
         			kill();
-        		}  // when player collides with itself
+        		}  
         	}
         }
         
-//        if(handler.getWorld().venomLocation[xCoord +10][yCoord +10]) {
-//        	this.setAteVenom(true);
-//        	speedControl--;
-//        }
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             this.setJustAte(true);
             addTail();
@@ -175,9 +164,6 @@ public class Player {
     
     public void setJustAte(boolean justAte) {
         this.justAte = justAte;
-    }
-    public void setAteVenom(boolean ateVenom) {
-        this.ateVenom = ateVenom;
     }
     
 	public void setEatSoundEffect(String eatSoundEffect) {
@@ -216,7 +202,6 @@ public class Player {
             }
         }
        
-        // changes apple color
         
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
@@ -237,21 +222,6 @@ public class Player {
                 }
             }
         }
-        
-        //changes venom color
-        
-//        for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
-//            for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-//                g.setColor(Color.yellow);
-//
-//                if(handler.getWorld().venomLocation[i][j]){
-//                    g.fillRect((i*handler.getWorld().GridPixelsize),
-//                            (j*handler.getWorld().GridPixelsize),
-//                            handler.getWorld().GridPixelsize,
-//                            handler.getWorld().GridPixelsize);
-//                }
-//            }
-//        }
     }
 
     public void setAppleRoundShape(boolean appleRoundShape) {

@@ -20,7 +20,6 @@ public class WorldOne extends WorldBase{
         GridPixelsize = (780/GridWidthHeightPixelCount);
         playerLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
         appleLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
-     //   venomLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
     }
 
     @Override
@@ -44,25 +43,7 @@ public class WorldOne extends WorldBase{
             appleLocation[appleX][appley]=true;
 
         }
-        
-//        if(!venomOnBoard){
-//            venomOnBoard=true;
-//            int venomX = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
-//            int venomY = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
-//
-//            //change coordinates till one is selected in which the player isnt standing
-//            boolean goodCoordinates=false;
-//            do{
-//                if(!handler.getWorld().playerLocation[venomX][venomY]){
-//                    goodCoordinates=true;
-//                }
-//            }while(!goodCoordinates);
-//
-//            venom = new Venom(handler,venomX,venomY);
-//            venomLocation[venomX][venomY]=true;
-//
-//        }
-    }
+     }
 
     @Override
     public void render(Graphics g){

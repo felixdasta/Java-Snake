@@ -32,11 +32,7 @@ public abstract class WorldBase {
     public Boolean appleOnBoard;
     protected Apple apple;
     public Boolean[][] appleLocation;
-    
-//    public Boolean venomOnBoard;
-// //   protected Venom venom;
-//    public Boolean[][] venomLocation;
-
+ 
     public Boolean[][] playerLocation;
 
     public LinkedList<Tail> body = new LinkedList<>();
@@ -65,7 +61,7 @@ public abstract class WorldBase {
 
         for (int i = 0; i <= 800; i = i + GridPixelsize) {
 
-            g.setColor(lineColor);//color of lines
+            g.setColor(lineColor);
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());
 

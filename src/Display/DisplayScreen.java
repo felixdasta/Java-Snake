@@ -35,7 +35,7 @@ public class DisplayScreen {
         this.width = width;
         this.height = height;
         
-        backgroundColor = Color.gray; //default background color
+        backgroundColor = Color.gray; 
 
         createDisplay();
     }
@@ -81,7 +81,7 @@ public class DisplayScreen {
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(backgroundColor);//changes background color
+        canvas.setBackground(backgroundColor);
 
         frame.add(canvas);
         frame.pack();

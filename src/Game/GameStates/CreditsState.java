@@ -3,14 +3,11 @@ package Game.GameStates;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.FileInputStream;
 
 import Display.DisplayScreen;
 import Main.Handler;
-import Resources.Images;
-import UI.UIImageButton;
 import UI.UIManager;
 
 public class CreditsState extends State{

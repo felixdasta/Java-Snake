@@ -7,8 +7,6 @@ import UI.UIManager;
 
 import java.awt.*;
 
-import Display.DisplayScreen;
-
 /**
  * Created by AlexVR on 7/1/2018.
  */
