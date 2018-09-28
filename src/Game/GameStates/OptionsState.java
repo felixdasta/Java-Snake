@@ -36,8 +36,9 @@ public class OptionsState extends State {
         }));
         uiManager.addObjects(new UIImageButton(120, 380, 192, 96, Images.defaultTheme, () -> {
             handler.getMouseManager().setUimanager(null);
-            handler.getWorld().player.setPlayerColor(Color.blue);
-            handler.getWorld().setLineColor(Color.red);
+            handler.getWorld().player.setPlayerColor(Color.green);
+            handler.getWorld().player.setAppleColor(Color.red);
+            handler.getWorld().setLineColor(Color.black);
             handler.getGame().getDisplay().setBackgroundColor(Color.gray);
             handler.getWorld().player.setEatSoundEffect("res/music/bite.wav");
             handler.getWorld().player.setDeathSoundEffect("res/music/evil morty.wav");
