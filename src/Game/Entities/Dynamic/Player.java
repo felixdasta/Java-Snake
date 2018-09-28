@@ -189,6 +189,9 @@ public class Player {
 	public void setAudioLoop(boolean toLoop) {
 		this.soundLoop = toLoop;
 	}
+	public void setAppleRoundShape(boolean appleRoundShape) {
+		this.appleRoundShape = appleRoundShape;
+	}
 
 	public void render(Graphics g,Boolean[][] playerLocation){
 
@@ -227,9 +230,6 @@ public class Player {
 				}
 			}
 		}
-	}
-	public void setAppleRoundShape(boolean appleRoundShape) {
-		this.appleRoundShape = appleRoundShape;
 	}
 
 	public void addTail(){

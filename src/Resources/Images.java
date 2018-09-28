@@ -1,7 +1,6 @@
 package Resources;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -51,9 +50,9 @@ public class Images {
         
         try {
 
-            title = ImageIO.read(new File("res/Sheets/Title.png"));
-            Pause = ImageIO.read(new File("res/Buttons/Pause.png"));
-            OptionsState = ImageIO.read(new File("res/Buttons/OptionsState.png"));
+            title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
+            Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
+            OptionsState = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsState.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
@@ -63,28 +62,28 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverBut.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
-            pacmanTheme[0] = ImageIO.read(new File("res/Buttons/Pacman.png"));
-            pacmanTheme[1] = ImageIO.read(new File("res/Buttons/PacmanP.png"));
-            defaultTheme[0] = ImageIO.read(new File("res/Buttons/DefaultTheme.png"));
-            defaultTheme[1] = ImageIO.read(new File("res/Buttons/DefaultThemeP.png"));
-            Back[0] = ImageIO.read(new File("res/Buttons/Back.png"));
-            Back[1] = ImageIO.read(new File("res/Buttons/BackP.png"));
+            pacmanTheme[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pacman.png"));
+            pacmanTheme[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/PacmanP.png"));
+            defaultTheme[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/DefaultTheme.png"));
+            defaultTheme[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/DefaultThemeP.png"));
+            Back[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Back.png"));
+            Back[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BackP.png"));
 
             GameInfo[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/gameInfo1.png"));
             GameInfo[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/gameInfo1.png"));
                   
-            MuteBM[0] = ImageIO.read(new File("res/Buttons/MuteBM.png"));
-            MuteBM[1] = ImageIO.read(new File("res/Buttons/MuteBM_P.png"));
-            MuteSE[0] = ImageIO.read(new File("res/Buttons/MuteSE.png"));
-            MuteSE[1] = ImageIO.read(new File("res/Buttons/MuteSE_P.png"));
-            UnmuteBM[0] = ImageIO.read(new File("res/Buttons/UnmuteBM.png"));
-            UnmuteBM[1] = ImageIO.read(new File("res/Buttons/UnmuteBM_P.png"));
-            UnmuteSE[0] = ImageIO.read(new File("res/Buttons/UnmuteSE.png"));
-            UnmuteSE[1] = ImageIO.read(new File("res/Buttons/UnmuteSE_P.png"));
+            MuteBM[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteBM.png"));
+            MuteBM[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteBM_P.png"));
+            MuteSE[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteSE.png"));
+            MuteSE[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteSE_P.png"));
+            UnmuteBM[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteBM.png"));
+            UnmuteBM[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteBM_P.png"));
+            UnmuteSE[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteSE.png"));
+            UnmuteSE[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteSE_P.png"));
             
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
-            GameOverIcon =  new ImageIcon("res/Sheets/GameOverIcon.png");
-            CelebrationIcon = new ImageIcon("res/Sheets/Celebrate.png");
+            GameOverIcon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOverIcon.png")));
+            CelebrationIcon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/Celebrate.png")));
 
 
         }catch (IOException e) {
