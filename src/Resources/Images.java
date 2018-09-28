@@ -15,8 +15,11 @@ public class Images {
     public static BufferedImage[] butstart;
     public static BufferedImage title;
     public static BufferedImage Pause;
+    public static BufferedImage GameOver;
     public static BufferedImage OptionsState;
     public static BufferedImage[] Resume;
+    public static BufferedImage[] yes;
+    public static BufferedImage[] no;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static BufferedImage[] Back;
@@ -29,13 +32,14 @@ public class Images {
     public static BufferedImage[] GameInfo;
 
     public static ImageIcon icon;
-    public static ImageIcon GameOverIcon;
     public static ImageIcon CelebrationIcon;
 
     public Images() {
 
         butstart = new BufferedImage[3];
         Resume = new BufferedImage[2];
+        yes = new BufferedImage[2];
+        no = new BufferedImage[2];
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];
         Back = new BufferedImage[2];
@@ -52,9 +56,14 @@ public class Images {
 
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
+            GameOver =  ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOver.png"));
             OptionsState = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsState.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
+            yes[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/yesBut.png"));
+            yes[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/yesBut_P.png"));
+            no[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/noBut.png"));
+            no[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/noBut_P.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
             BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
             Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
@@ -82,7 +91,6 @@ public class Images {
             UnmuteSE[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteSE_P.png"));
             
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
-            GameOverIcon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOverIcon.png")));
             CelebrationIcon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/Celebrate.png")));
 
 

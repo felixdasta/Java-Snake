@@ -18,6 +18,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Display.DisplayScreen;
 import Game.GameStates.CreditsState;
+import Game.GameStates.GameOverState;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.OptionsState;
@@ -57,6 +58,7 @@ public class GameSetUp implements Runnable {
     public State menuState;
     public State pauseState;
     public State optionsState;
+    public State gameOverState;
     public State creditsState;
 
     //Res.music
@@ -132,6 +134,7 @@ public class GameSetUp implements Runnable {
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
         optionsState = new OptionsState(handler);
+        gameOverState = new GameOverState(handler);
         creditsState = new CreditsState(handler);
 
         State.setState(menuState);

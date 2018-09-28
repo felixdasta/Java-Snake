@@ -402,28 +402,12 @@ public class Player {
 		}else{ 
 			handler.getGame().playAudio(deathSoundEffect, soundLoop); 
 		} 
-
-		int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over.\nDo you want to return to the menu?","Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
-
-		if (gameOver == JOptionPane.YES_OPTION) {
-
-			checkScore();
-			handler.getGame().stopAudio();
-			handler.getGame().playMainAudioAs("res/music/nature.wav");
-			handler.getGame().getDisplay().setBackgroundColor(Color.gray);
-			xCoord = 0;
-			yCoord = 0;
-			State.setState(handler.getGame().menuState);
-			DisplayScreen.setMessage("Welcome to the snake game!");
-			
-		}else{
-			checkScore();
-			for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
-				for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-					handler.getWorld().playerLocation[i][j]=false;
-					State.setState(handler.getGame().creditsState); 
+		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
+			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
+				handler.getWorld().playerLocation[i][j]=false;
+				State.setState(handler.getGame().gameOverState); 
 				}
 			}
-		}
+		
 	}
 }
