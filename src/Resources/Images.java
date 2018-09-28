@@ -29,9 +29,9 @@ public class Images {
     public static BufferedImage[] UnmuteSE;
     public static BufferedImage[] GameInfo;
 
-
     public static ImageIcon icon;
     public static ImageIcon GameOverIcon;
+    public static ImageIcon CelebrationIcon;
 
     public Images() {
 
@@ -84,6 +84,7 @@ public class Images {
             
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
             GameOverIcon =  new ImageIcon("res/Sheets/GameOverIcon.png");
+            CelebrationIcon = new ImageIcon("res/Sheets/Celebrate.png");
 
 
         }catch (IOException e) {
