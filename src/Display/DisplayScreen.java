@@ -1,12 +1,20 @@
 package Display;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
-import Game.Entities.Dynamic.Player;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -19,6 +27,7 @@ public class DisplayScreen {
     private Canvas canvas;
 	private String title;
     private int width, height;
+    private Font messageFont;
     private Color backgroundColor;
 
     public DisplayScreen(String title, int width, int height){
@@ -37,8 +46,20 @@ public class DisplayScreen {
 	}
 
 	private void createDisplay(){
+		try {
+			messageFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("res/Font/Evogria.otf"))).deriveFont(Font.PLAIN, 14);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (FontFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	message = new JLabel("Welcome to the snake game!");
-    	message.setFont(new Font("Impact", Font.PLAIN, 14));
+    	message.setFont(messageFont);
     	
         frame = new JFrame(title);
         frame.setSize(width, height);

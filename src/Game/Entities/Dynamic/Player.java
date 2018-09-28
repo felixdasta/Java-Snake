@@ -388,6 +388,7 @@ public class Player {
     
     public void checkScore(){
     	if(score > Integer.parseInt(highScore.substring(highScore.indexOf(":") + 2, highScore.indexOf("(")-1))){
+    		handler.getGame().stopAudio();
     		handler.getGame().playAudio("res/music/cheering.wav", false);
     		String name = JOptionPane.showInputDialog(null, "Congratulations! You set a new high score.\nPlease enter your name: ");
     		highScore = String.format("highest score: %d (by %s)", score, name); 
@@ -416,13 +417,17 @@ public class Player {
     public void kill(){
     	length = 0;
     	handler.getGame().stopMainAudio();
+    	
     		if(soundLoop){ 
     			handler.getGame().playAudio(deathSoundEffect, soundLoop);  
     		}else{ 
     			handler.getGame().playAudio(deathSoundEffect, soundLoop); 
     		} 
+    		
         int gameOver = JOptionPane.showConfirmDialog(null, "Sorry snake! The game is over.\nDo you want to return to the menu?","Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, Images.GameOverIcon);
+        
         if (gameOver == JOptionPane.YES_OPTION) {
+        	
             checkScore();
             handler.getGame().stopAudio();
             handler.getGame().playMainAudioAs("res/music/nature.wav");
@@ -431,12 +436,15 @@ public class Player {
             yCoord = 0;
             DisplayScreen.setMessage("Welcome to the snake game!");
         	State.setState(handler.getGame().menuState);
+        	
         }else{
+        	
             checkScore();
             for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
                 for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 	handler.getWorld().playerLocation[i][j]=false;
                 	State.setState(handler.getGame().creditsState); 
+                	
                 }
             }
             
