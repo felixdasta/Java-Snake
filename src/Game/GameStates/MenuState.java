@@ -6,6 +6,7 @@ import Resources.Images;
 import UI.ClickListlener;
 import UI.UIImageButton;
 import UI.UIManager;
+import java.awt.Graphics;
 
 import java.awt.*;
 
@@ -21,13 +22,16 @@ public class MenuState extends State {
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
        
-//        uiManager.addObjects(new UIImageButton(handler.getWidth()/20, handler.getHeight()/20-10, 32, 32, Images.Mute, () -> {
-//            handler.getMouseManager().setUimanager(null);
-//            handler.getGame().stopMainAudio();
-//            handler.getGame().stopAudio();
-//        
-//        }));
-
+       uiManager.addObjects(new UIImageButton(handler.getWidth()/20, handler.getHeight()/20-10, 32, 32, Images.GameInfo, ()-> {
+           handler.getMouseManager().setUimanager(null); 
+       }));
+       
+//       uiManager.addObjects(new UIImageButton(handler.getWidth()/10, handler.getHeight()/20, 100, 100, Images.GameInfo1, () -> {
+//    	   handler.getMouseManager().setUimanager(null);
+//    	  
+//
+//       }));
+       
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.butstart, new ClickListlener() {
             @Override
             public void onClick() {
@@ -51,6 +55,14 @@ public class MenuState extends State {
         g.fillRect(0,0,handler.getWidth(),handler.getHeight());
         g.drawImage(Images.title,0,0,handler.getWidth(),handler.getHeight(),null);
         uiManager.Render(g);
+        
+        g.setColor(Color.white);
+        g.drawString("Press:\r\n", handler.getWidth()/10, handler.getHeight()/20);
+        g.drawString("P –> Pause game\r\n", handler.getWidth()/10, handler.getHeight()/20 +10);
+        g.drawString("N –> adds piece of tail\r\n", handler.getWidth()/10, handler.getHeight()/20 +20);
+        g.drawString("+  –> increases speed\r\n", handler.getWidth()/10, handler.getHeight()/20+30);
+        g.drawString("-  –> decreases speed\r\n", handler.getWidth()/10, handler.getHeight()/20+40);
+
 
     }
 

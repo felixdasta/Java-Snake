@@ -27,6 +27,10 @@ public class Images {
     public static BufferedImage[] MuteSE;
     public static BufferedImage[] UnmuteBM;
     public static BufferedImage[] UnmuteSE;
+    public static BufferedImage[] GameInfo;
+    public static BufferedImage[] GameInfo1;
+
+
     public static ImageIcon icon;
     public static ImageIcon GameOverIcon;
 
@@ -43,6 +47,9 @@ public class Images {
         MuteSE = new BufferedImage[2];
         UnmuteBM = new BufferedImage[2];
         UnmuteSE = new BufferedImage[2];
+        GameInfo = new BufferedImage[2];
+        GameInfo1 = new BufferedImage[2];
+        
         
         try {
 
@@ -65,6 +72,11 @@ public class Images {
             Back[0] = ImageIO.read(new File("res/Buttons/Back.png"));
             Back[1] = ImageIO.read(new File("res/Buttons/BackP.png"));
 
+            GameInfo[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/gameInfo1.png"));
+            GameInfo[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/gameInfo1.png"));
+            
+            GameInfo1[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/gameInfo.png"));
+            GameInfo1[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/gameInfo.png"));
             
             MuteBM[0] = ImageIO.read(new File("res/Buttons/MuteBM.png"));
             MuteBM[1] = ImageIO.read(new File("res/Buttons/MuteBM_P.png"));

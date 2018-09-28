@@ -42,14 +42,6 @@ public class PauseState extends State {
             DisplayScreen.setMessage("Welcome to the snake game!");
         }));
 
-        
-//        uiManager.addObjects(new UIImageButton(56 , 223+(64+16)+(100+64+16), 32, 32, Images.Mute, () -> {
-//            handler.getMouseManager().setUimanager(null);
-//            handler.getGame().stopMainAudio();
-//            handler.getGame().stopAudio();
-//            
-//            }));
-
     }
 
     @Override
