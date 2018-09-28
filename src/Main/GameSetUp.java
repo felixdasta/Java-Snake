@@ -17,6 +17,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Display.DisplayScreen;
+import Game.GameStates.CreditsState;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.OptionsState;
@@ -56,6 +57,7 @@ public class GameSetUp implements Runnable {
     public State menuState;
     public State pauseState;
     public State optionsState;
+    public State creditsState;
 
     //Res.music
     private InputStream audioFile;
@@ -64,6 +66,8 @@ public class GameSetUp implements Runnable {
     private DataLine.Info info;
     private Clip audioClip;
     private Clip audioPlayer; //to play sound effects other than the main audio
+    private boolean soundEffectMute;
+    private boolean backgroundMusicMute;
 
     private BufferedImage loading;
 
@@ -79,11 +83,17 @@ public class GameSetUp implements Runnable {
     public DisplayScreen getDisplay() {
 		return display;
 	}
-	public void playAudio(String fileLocation){
+	public void playAudio(String fileLocation, boolean soundLoop){
 			try {
-	            audioPlayer = AudioSystem.getClip();
-	            audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
-				audioPlayer.start();
+				if(!soundEffectMute){
+					audioPlayer = AudioSystem.getClip();
+					audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
+					if(!soundLoop){
+						audioPlayer.start();
+					}else{
+						audioPlayer.loop(Clip.LOOP_CONTINUOUSLY);
+					}
+				}
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -103,7 +113,10 @@ public class GameSetUp implements Runnable {
     	audioPlayer.stop();
     }
 
-    private void init(){
+    public void setSoundEffectMute(boolean soundEffectMute) {
+		this.soundEffectMute = soundEffectMute;
+	}
+	private void init(){
         display = new DisplayScreen(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         display.getFrame().addMouseListener(mouseManager);
@@ -119,6 +132,7 @@ public class GameSetUp implements Runnable {
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
         optionsState = new OptionsState(handler);
+        creditsState = new CreditsState(handler);
 
         State.setState(menuState);
 
@@ -143,35 +157,33 @@ public class GameSetUp implements Runnable {
 	public void stopMainAudio(){
     	audioClip.stop();
     }
-	public void setMainAudioAs(String fileLocation){
+	public void playMainAudioAs(String fileLocation){
 		try {
+			if(!backgroundMusicMute){
 			audioStream = AudioSystem.getAudioInputStream(new File(fileLocation));
 			audioClip = AudioSystem.getClip();
-		} catch (UnsupportedAudioFileException e) {
+			audioClip.open(audioStream);
+			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+			}
+		} catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (LineUnavailableException e) {
+		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	public void playMainAudio(){
-		try {
-			audioClip.open(audioStream);
-			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
     
-    public void reStart(){
+    public void setBackgroundMusicMute(boolean backgroundMusicMute) {
+		this.backgroundMusicMute = backgroundMusicMute;
+	}
+	public void reStart(){
         gameState = new GameState(handler);
     }
 

@@ -16,16 +16,19 @@ public class Images {
     public static BufferedImage[] butstart;
     public static BufferedImage title;
     public static BufferedImage Pause;
+    public static BufferedImage OptionsState;
     public static BufferedImage[] Resume;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static BufferedImage[] Back;
     public static BufferedImage[] pacmanTheme;
     public static BufferedImage[] defaultTheme;
+    public static BufferedImage[] MuteBM;
+    public static BufferedImage[] MuteSE;
+    public static BufferedImage[] UnmuteBM;
+    public static BufferedImage[] UnmuteSE;
     public static ImageIcon icon;
     public static ImageIcon GameOverIcon;
-    
-    public static BufferedImage[] Mute;
 
     public Images() {
 
@@ -36,13 +39,16 @@ public class Images {
         Back = new BufferedImage[2];
         pacmanTheme = new BufferedImage[2];
         defaultTheme = new BufferedImage[2];
-        Mute = new BufferedImage[2];
-
+        MuteBM = new BufferedImage[2];
+        MuteSE = new BufferedImage[2];
+        UnmuteBM = new BufferedImage[2];
+        UnmuteSE = new BufferedImage[2];
         
         try {
 
             title = ImageIO.read(new File("res/Sheets/Title.png"));
-            Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
+            Pause = ImageIO.read(new File("res/Buttons/Pause.png"));
+            OptionsState = ImageIO.read(new File("res/Buttons/OptionsState.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
@@ -58,9 +64,16 @@ public class Images {
             defaultTheme[1] = ImageIO.read(new File("res/Buttons/DefaultThemeP.png"));
             Back[0] = ImageIO.read(new File("res/Buttons/Back.png"));
             Back[1] = ImageIO.read(new File("res/Buttons/BackP.png"));
+
             
-            Mute[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Mute.png"));
-            Mute[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteP.png"));
+            MuteBM[0] = ImageIO.read(new File("res/Buttons/MuteBM.png"));
+            MuteBM[1] = ImageIO.read(new File("res/Buttons/MuteBM_P.png"));
+            MuteSE[0] = ImageIO.read(new File("res/Buttons/MuteSE.png"));
+            MuteSE[1] = ImageIO.read(new File("res/Buttons/MuteSE_P.png"));
+            UnmuteBM[0] = ImageIO.read(new File("res/Buttons/UnmuteBM.png"));
+            UnmuteBM[1] = ImageIO.read(new File("res/Buttons/UnmuteBM_P.png"));
+            UnmuteSE[0] = ImageIO.read(new File("res/Buttons/UnmuteSE.png"));
+            UnmuteSE[1] = ImageIO.read(new File("res/Buttons/UnmuteSE_P.png"));
             
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
             GameOverIcon =  new ImageIcon("res/Sheets/GameOverIcon.png");

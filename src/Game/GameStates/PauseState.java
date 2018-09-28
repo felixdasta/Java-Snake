@@ -37,18 +37,18 @@ public class PauseState extends State {
             handler.getWorld().player.checkScore();
             handler.getGame().getDisplay().setBackgroundColor(Color.gray);
             handler.getGame().stopMainAudio();
-            handler.getGame().setMainAudioAs("res/music/nature.wav");
-            handler.getGame().playMainAudio();
+            handler.getGame().playMainAudioAs("res/music/nature.wav");
             State.setState(handler.getGame().menuState);
             DisplayScreen.setMessage("Welcome to the snake game!");
         }));
+
         
-        uiManager.addObjects(new UIImageButton(56 , 223+(64+16)+(100+64+16), 32, 32, Images.Mute, () -> {
-            handler.getMouseManager().setUimanager(null);
-            handler.getGame().stopMainAudio();
-            handler.getGame().stopAudio();
-            
-            }));
+//        uiManager.addObjects(new UIImageButton(56 , 223+(64+16)+(100+64+16), 32, 32, Images.Mute, () -> {
+//            handler.getMouseManager().setUimanager(null);
+//            handler.getGame().stopMainAudio();
+//            handler.getGame().stopAudio();
+//            
+//            }));
 
     }
 
