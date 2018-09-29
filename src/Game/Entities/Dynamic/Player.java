@@ -19,13 +19,13 @@ import Resources.Images;
  * Created by AlexVR on 7/2/2018.
  */
 public class Player {
-    public int length;
-    private boolean justAte;
-    private boolean soundLoop;
-    private boolean appleRoundShape;
-    private Handler handler;
-    private Tail tail;
-    private int score;
+	public int length;
+	private boolean justAte;
+	private boolean soundLoop;
+	private boolean appleRoundShape;
+	private Handler handler;
+	private Tail tail;
+	private int score;
 	public int xCoord;
 	public int yCoord;
 	public int moveCounter;
@@ -95,7 +95,7 @@ public class Player {
 			addTail();
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
-	        handler.getGame().playAudio("res/music/pause.wav", false);
+			handler.getGame().playAudio("res/music/pause.wav", false);
 			State.setState(handler.getGame().pauseState);;
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
@@ -399,15 +399,14 @@ public class Player {
 
 		if(soundLoop){ 
 			handler.getGame().playAudio(deathSoundEffect, soundLoop);  
-		}else{ 
-			handler.getGame().playAudio(deathSoundEffect, soundLoop); 
+		}else{ 														//determines if the sound effect will be looping
+			handler.getGame().playAudio(deathSoundEffect, soundLoop);
 		} 
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 				handler.getWorld().playerLocation[i][j]=false;
 				State.setState(handler.getGame().gameOverState); 
-				}
 			}
-		
+		}
 	}
 }

@@ -44,8 +44,6 @@ public class GameSetUp implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
 
-
-
     //Input
     private KeyManager keyManager;
     private MouseManager mouseManager;
@@ -66,6 +64,7 @@ public class GameSetUp implements Runnable {
     private AudioInputStream audioStream;
     private AudioFormat format;
     private DataLine.Info info;
+    private String audioName;
     private Clip audioClip;
     private Clip audioPlayer; //to play sound effects other than the main audio
     private boolean soundEffectMute;
@@ -85,39 +84,7 @@ public class GameSetUp implements Runnable {
     public DisplayScreen getDisplay() {
 		return display;
 	}
-	public void playAudio(String fileLocation, boolean soundLoop){
-			try {
-				if(!soundEffectMute){
-					audioPlayer = AudioSystem.getClip();
-					audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
-					if(!soundLoop){
-						audioPlayer.start();
-					}else{
-						audioPlayer.loop(Clip.LOOP_CONTINUOUSLY);
-					}
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (LineUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UnsupportedAudioFileException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-    }
-    public void stopAudio(){
-    	audioPlayer.stop();
-    }
-
-    public void setSoundEffectMute(boolean soundEffectMute) {
-		this.soundEffectMute = soundEffectMute;
-	}
+    
 	private void init(){
         display = new DisplayScreen(title, width, height);
         display.getFrame().addKeyListener(keyManager);
@@ -148,6 +115,8 @@ public class GameSetUp implements Runnable {
             audioClip = (Clip) AudioSystem.getLine(info);
             audioClip.open(audioStream);
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+            
+            audioName = "/music/nature.wav";
 
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
@@ -157,9 +126,38 @@ public class GameSetUp implements Runnable {
             e.printStackTrace();
         }
     }
+    public void stopAudio(){
+    	audioPlayer.stop();
+    }
 	public void stopMainAudio(){
     	audioClip.stop();
     }
+	public void playAudio(String fileLocation, boolean soundLoop){
+		try {
+			if(!soundEffectMute){
+				audioPlayer = AudioSystem.getClip();
+				audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
+				if(!soundLoop){
+					audioPlayer.start();
+				}else{
+					audioPlayer.loop(Clip.LOOP_CONTINUOUSLY);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+}
 	public void playMainAudioAs(String fileLocation){
 		try {
 			if(!backgroundMusicMute){
@@ -167,6 +165,7 @@ public class GameSetUp implements Runnable {
 			audioClip = AudioSystem.getClip();
 			audioClip.open(audioStream);
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+			audioName = fileLocation;
 			}
 		} catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
@@ -183,9 +182,6 @@ public class GameSetUp implements Runnable {
 		audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
     
-    public void setBackgroundMusicMute(boolean backgroundMusicMute) {
-		this.backgroundMusicMute = backgroundMusicMute;
-	}
 	public void reStart(){
         gameState = new GameState(handler);
     }
@@ -274,8 +270,17 @@ public class GameSetUp implements Runnable {
             e.printStackTrace();
         }
     }
-
-    public KeyManager getKeyManager(){
+    public void setSoundEffectMute(boolean soundEffectMute) {
+		this.soundEffectMute = soundEffectMute;
+	}
+    
+    public void setBackgroundMusicMute(boolean backgroundMusicMute) {
+		this.backgroundMusicMute = backgroundMusicMute;
+	}
+    public String getAudioName() {
+		return audioName;
+	}
+	public KeyManager getKeyManager(){
         return keyManager;
     }
 

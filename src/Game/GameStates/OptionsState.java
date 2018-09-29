@@ -30,21 +30,26 @@ public class OptionsState extends State {
             handler.getWorld().player.setEatSoundEffect("res/music/pacman_chomp.wav");
             handler.getWorld().player.setDeathSoundEffect("res/music/pacman_death.wav");
             handler.getWorld().player.setAudioLoop(false);
-            handler.getGame().stopMainAudio();
-            handler.getGame().playMainAudioAs("res/music/pacman_fever.wav");
+            if(!handler.getGame().getAudioName().equals("res/music/pacman_fever.wav")){
+                handler.getGame().stopMainAudio();
+                handler.getGame().playMainAudioAs("res/music/pacman_fever.wav");
+            }
             State.setState(handler.getGame().pauseState);
         }));
         uiManager.addObjects(new UIImageButton(120, 380, 192, 96, Images.defaultTheme, () -> {
             handler.getMouseManager().setUimanager(null);
             handler.getWorld().player.setPlayerColor(Color.green);
             handler.getWorld().player.setAppleColor(Color.red);
+            handler.getWorld().player.setAppleRoundShape(false);
             handler.getWorld().setLineColor(Color.black);
             handler.getGame().getDisplay().setBackgroundColor(Color.gray);
             handler.getWorld().player.setEatSoundEffect("res/music/bite.wav");
             handler.getWorld().player.setDeathSoundEffect("res/music/evil morty.wav");
             handler.getWorld().player.setAudioLoop(true);
-            handler.getGame().stopMainAudio();
-            handler.getGame().playMainAudioAs("res/music/nature.wav");
+            if(!(handler.getGame().getAudioName().equals("res/music/nature.wav") || handler.getGame().getAudioName().equals("/music/nature.wav"))){
+                handler.getGame().stopMainAudio();
+                handler.getGame().playMainAudioAs("res/music/nature.wav");
+            }
             State.setState(handler.getGame().pauseState);
         }));
         uiManager.addObjects(new UIImageButton(183, 500, 69, 27, Images.Back, () -> {
